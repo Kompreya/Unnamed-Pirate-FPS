@@ -1,0 +1,14 @@
+[gd_scene load_steps=5 format=3 uid="uid://byxeglalj8r0r"]
+
+[ext_resource type="Script" uid="uid://cfxjj26qp24bl" path="res://scripts/enemies/components/loot_component.gd" id="1_jy6if"]
+[ext_resource type="Script" uid="uid://b48o6sj34usv3" path="res://scripts/lootables/resources/loot.gd" id="2_7hbl8"]
+[ext_resource type="Script" uid="uid://discwqh6kukpk" path="res://scripts/lootables/resources/loot_table.gd" id="3_g30gj"]
+
+[sub_resource type="Resource" id="Resource_kkfjx"]
+resource_local_to_scene = true
+script = ExtResource("3_g30gj")
+metadata/_custom_type_script = "uid://discwqh6kukpk"
+
+[node name="LootComponent" type="Node3D"]
+script = ExtResource("1_jy6if")
+enemy_loot = SubResource("Resource_kkfjx")

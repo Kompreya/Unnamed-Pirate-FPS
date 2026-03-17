@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://chw30xd55ax2c"]
+
+[ext_resource type="Script" uid="uid://bchsi502k8lqw" path="res://scripts/enemies/components/ray_cast_component.gd" id="1_eeu3s"]
+
+[node name="RayCastComponent" type="RayCast3D"]
+script = ExtResource("1_eeu3s")

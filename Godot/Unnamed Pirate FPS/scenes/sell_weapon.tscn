@@ -1,0 +1,75 @@
+[gd_scene load_steps=4 format=3 uid="uid://br81pnahxjeil"]
+
+[ext_resource type="Script" uid="uid://bfmkkomt5ha8l" path="res://scenes/sell_weapon.gd" id="1_xsvje"]
+[ext_resource type="Texture2D" uid="uid://d1yqdfn0hlrl2" path="res://assets/images/Screenshot_20260126_182032.png" id="2_ubqrx"]
+[ext_resource type="Texture2D" uid="uid://bvnunwqyxsrsu" path="res://assets/images/Screenshot_2026-01-25-16-38-03_.png" id="3_ys6ml"]
+
+[node name="SellWeapon" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = 3.0
+offset_right = 9.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xsvje")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 161.0
+offset_bottom = 196.0
+
+[node name="TextureRect" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_right = 160.3139
+offset_bottom = 150.0
+texture = ExtResource("2_ubqrx")
+expand_mode = 1
+
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -70.5
+offset_top = -48.0
+offset_right = 72.5
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="Panel/Button"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 5.0
+offset_top = -17.5
+offset_right = 40.278885
+offset_bottom = 17.5
+grow_vertical = 2
+texture = ExtResource("3_ys6ml")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="Panel/Button"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -103.0
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 22
+text = "500	"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Panel/Button" to="." method="_on_button_pressed"]

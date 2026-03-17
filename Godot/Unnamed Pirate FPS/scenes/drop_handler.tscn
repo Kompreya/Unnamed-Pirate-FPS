@@ -1,0 +1,7 @@
+[gd_scene load_steps=0 format=3 uid="uid://c0wpgspb00yyx"]
+
+[node name="DropHandler" type="Node3D"]
+
+[node name="Coins" type="Node3D" parent="."]
+
+[node name="Chest_Loot" type="Node3D" parent="."]

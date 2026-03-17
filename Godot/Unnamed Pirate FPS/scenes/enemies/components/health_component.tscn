@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://cu8anc2jct38y"]
+
+[ext_resource type="Script" uid="uid://bu1mahpdx6m4h" path="res://scripts/enemies/components/health_component.gd" id="1_nyo2q"]
+[ext_resource type="Script" uid="uid://c8tf5brgev1e0" path="res://scripts/enemies/enemy_stats.gd" id="2_arkvy"]
+
+[sub_resource type="Resource" id="Resource_nyo2q"]
+resource_local_to_scene = true
+script = ExtResource("2_arkvy")
+metadata/_custom_type_script = "uid://c8tf5brgev1e0"
+
+[node name="HealthComponent" type="Node3D"]
+script = ExtResource("1_nyo2q")
+enemy_stats = SubResource("Resource_nyo2q")

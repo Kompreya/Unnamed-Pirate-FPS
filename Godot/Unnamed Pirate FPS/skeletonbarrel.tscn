@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://0etku2yw3k8w"]
+
+[ext_resource type="PackedScene" uid="uid://bg6y7kt1r0pd3" path="res://assets/models/skeletonbarrel/skeletonbarrel.glb" id="1_47tec"]
+
+[node name="skeletonbarrel" instance=ExtResource("1_47tec")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)

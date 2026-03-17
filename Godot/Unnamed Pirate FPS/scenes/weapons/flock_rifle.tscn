@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bp0kqpsx4842f"]
+
+[ext_resource type="PackedScene" uid="uid://baslqxtx8yt8x" path="res://assets/models/Rifle.glb" id="1_6kub0"]
+
+[node name="Root Scene" instance=ExtResource("1_6kub0")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)

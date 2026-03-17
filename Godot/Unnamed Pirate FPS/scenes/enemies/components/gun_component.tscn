@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://cg4tqirost63c"]
+
+[ext_resource type="Script" uid="uid://bbo8wlnf40caw" path="res://scripts/enemies/components/gun_component.gd" id="1_hcj43"]
+[ext_resource type="Script" uid="uid://c8tf5brgev1e0" path="res://scripts/enemies/enemy_stats.gd" id="2_8wco5"]
+
+[sub_resource type="Resource" id="Resource_m5o87"]
+resource_local_to_scene = true
+script = ExtResource("2_8wco5")
+metadata/_custom_type_script = "uid://c8tf5brgev1e0"
+
+[node name="GunComponent" type="Node3D"]
+script = ExtResource("1_hcj43")
+player_path = null
+enemy_stats = SubResource("Resource_m5o87")
+can_aim = null

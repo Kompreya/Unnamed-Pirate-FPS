@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://cm6b266dtlrbx"]
+
+[ext_resource type="Shader" uid="uid://deyiw2yn1xx8v" path="res://shaders/cell_cartoon/materials/vfx/dissolve.gdshader" id="1_im7wb"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3x27y"]
+seed = 6
+frequency = 0.0029
+offset = Vector3(366.67, 0, 0)
+fractal_weighted_strength = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sju7m"]
+noise = SubResource("FastNoiseLite_3x27y")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fthar"]
+render_priority = 0
+shader = ExtResource("1_im7wb")
+shader_parameter/base_color = Color(0.4565437, 1, 1, 1)
+shader_parameter/inside_color = Color(0, 0, 0, 1)
+shader_parameter/dissolve_amount = 0.45600002166
+shader_parameter/glow_color = Color(0, 0, 0, 1)
+shader_parameter/glow_intensity = 5.0
+shader_parameter/glow_border_width = 0.02000000095
+shader_parameter/glow_border_smoothness = 0.0
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_sju7m")
+
+[sub_resource type="BoxMesh" id="BoxMesh_ugewl"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_fthar")
+mesh = SubResource("BoxMesh_ugewl")

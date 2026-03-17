@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://vcrr122q2eg5"]
+
+[ext_resource type="Script" uid="uid://bafp5fqpa2pew" path="res://scripts/globals/munitions_emitters.gd" id="1_6dp6f"]
+
+[node name="MunitionsEmitters" type="Node3D"]
+script = ExtResource("1_6dp6f")
+
+[node name="Bullets" type="Node3D" parent="."]
+
+[node name="Emitters" type="Node3D" parent="."]
+
+[node name="Bombs" type="Node3D" parent="."]
+
+[node name="Rum_Splats" type="MeshInstance3D" parent="."]

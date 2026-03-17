@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bohwle4tyf3x6"]
+
+[ext_resource type="Script" uid="uid://ccehqmii17gli" path="res://scripts/shark_trail.gd" id="1_gc5v1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_72cty"]
+transparency = 1
+albedo_color = Color(9.62615e-06, 0.97077817, 0.9782112, 1)
+emission_enabled = true
+emission = Color(7.508397e-06, 0.92946506, 0.83539873, 1)
+emission_energy_multiplier = 2.4
+
+[node name="SharkTrail" type="MeshInstance3D"]
+material_override = SubResource("StandardMaterial3D_72cty")
+script = ExtResource("1_gc5v1")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,80 @@
+[gd_scene load_steps=3 format=3 uid="uid://drr0fwcb7rpcf"]
+
+[ext_resource type="Script" uid="uid://cvylsf8yw2hg3" path="res://scripts/waves/wave_intermission_window.gd" id="1_pbbsy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x7mtu"]
+bg_color = Color(0.37, 0.37, 0.37, 1)
+
+[node name="Wave Intermission Window" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pbbsy")
+
+[node name="BG" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -331.0
+offset_top = -168.0
+offset_right = 331.0
+offset_bottom = 168.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_x7mtu")
+
+[node name="Wave Complete" type="Label" parent="BG"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -161.0
+offset_top = 10.0
+offset_right = 161.0
+offset_bottom = 79.0
+grow_horizontal = 2
+text = "wave complete!"
+horizontal_alignment = 1
+
+[node name="Next Wave" type="Button" parent="BG"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -69.0
+offset_right = 80.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Next Wave"
+
+[node name="Curse Test" type="Button" parent="BG"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -91.0
+offset_top = -114.0
+offset_right = 91.0
+offset_bottom = 62.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Apply curse of health.
+
+Enemies get +6 HP per stack
+"
+autowrap_mode = 2
+
+[connection signal="pressed" from="BG/Next Wave" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="BG/Curse Test" to="." method="_on_curse_test_pressed"]

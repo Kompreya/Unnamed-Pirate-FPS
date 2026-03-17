@@ -1,0 +1,109 @@
+[gd_scene load_steps=17 format=3 uid="uid://cncoqc2p7150a"]
+
+[ext_resource type="Script" uid="uid://4a2wmt2cdpwh" path="res://scripts/Player.gd" id="1_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://c5hk2d38xucbv" path="res://scenes/weapons/flock_pistol.tscn" id="2_dqkch"]
+[ext_resource type="Script" uid="uid://cyt8a8k2nruwq" path="res://scripts/player/components/first_person_camera_component.gd" id="2_smehm"]
+[ext_resource type="PackedScene" uid="uid://dmliay3lfiucm" path="res://scenes/weapons/shark_machine_gun.tscn" id="3_qlg0r"]
+[ext_resource type="PackedScene" uid="uid://c7goj3vonjqhf" path="res://scenes/player/components/health_component.tscn" id="4_dqkch"]
+[ext_resource type="PackedScene" uid="uid://b0hjxm4ymwmnu" path="res://scenes/player/components/hurtbox_component.tscn" id="5_qlg0r"]
+[ext_resource type="PackedScene" uid="uid://cgnrub3g6c248" path="res://scenes/player/components/aim_ray_component.tscn" id="5_ur7pv"]
+[ext_resource type="PackedScene" uid="uid://h640yup3gw1w" path="res://scenes/player/components/move_component.tscn" id="6_tuyoq"]
+[ext_resource type="PackedScene" uid="uid://byd142q2c7kq1" path="res://scenes/player/components/input_component.tscn" id="7_fjrip"]
+[ext_resource type="Script" uid="uid://b47f1neswlvik" path="res://scripts/weapons/resources/weapon_attributes.gd" id="9_d2wvv"]
+[ext_resource type="Script" uid="uid://7p2ude1lt3n4" path="res://scripts/player/weapon_manager/weapon_manager.gd" id="10_y4r1p"]
+[ext_resource type="PackedScene" uid="uid://duh68ynyxu67f" path="res://scenes/weapons/grog_bottle.tscn" id="12_3v2ag"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_71j4m"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_qfnet"]
+points = PackedVector3Array(-0.12520654, -0.532801, -0.4805069, 0.022783129, 0.4760704, 0.49888408, 0.16971254, 0.5591441, 0.46417162, 0.23105091, -0.8035912, 0.32045516, 0.40741014, 0.651043, -0.24352328, -0.4827893, 0.59484255, 0.082213186, -0.3628679, -0.68231165, 0.2896967, 0.46904355, -0.65452886, -0.06627126, -0.12744367, 0.8427015, -0.33810276, -0.39343542, -0.6839421, -0.24471663, 0.43825462, 0.62330925, 0.20084947, 0.0841477, 0.977454, 0.11479468, -0.06820232, -0.9764576, -0.12927033, 0.20054972, -0.56312895, -0.4514544, -0.18552664, 0.59545326, -0.4534751, -0.27336287, 0.59226835, 0.40775412, -0.0069364863, -0.47682306, 0.49966025, 0.37582088, -0.5886136, 0.31695515, 0.111579016, 0.5630594, -0.48117727, -0.41725034, 0.5278656, -0.27049688, -0.48454633, -0.59697217, -0.06650971, -0.27974695, 0.90856135, 0.05333608, -0.25019687, -0.8807117, 0.20531891, 0.263647, -0.90277094, -0.1273943, 0.29336792, 0.8715263, -0.15719566, 0.3734115, -0.5263189, -0.32824618, 0.4996626, 0.47664148, -0.0068885577, 0.053105574, 0.8750009, 0.32470253, -0.15454252, -0.5908538, 0.4658794, -0.09727988, -0.7823577, -0.39818847, -0.3876489, -0.49817133, 0.31564978, -0.30067965, -0.58799505, -0.38890144)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_3v2ag"]
+radius = 1.0
+
+[sub_resource type="Resource" id="Resource_d2wvv"]
+script = ExtResource("9_d2wvv")
+metadata/_custom_type_script = "uid://b47f1neswlvik"
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 9
+floor_max_angle = 0.87266463
+script = ExtResource("1_qhqgy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_71j4m")
+
+[node name="EnvironmentCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("ConvexPolygonShape3D_qfnet")
+
+[node name="Head" type="Node3D" parent="." node_paths=PackedStringArray("camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8533999, 0)
+script = ExtResource("2_smehm")
+camera = NodePath("Camera3D")
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+current = true
+
+[node name="AimRayComponent" parent="Head/Camera3D" instance=ExtResource("5_ur7pv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="Camera3D2" type="Camera3D" parent="Head"]
+transform = Transform3D(0.47579303, 0, 0.87955725, 0, 1, 0, -0.87955725, 0, 0.47579303, 2.73341, 0, 0.17836142)
+
+[node name="HealthComponent" parent="." instance=ExtResource("4_dqkch")]
+player_health = 100
+
+[node name="AttackZoneTrigger" type="Area3D" parent="."]
+collision_layer = 257
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackZoneTrigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_3v2ag")
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_qlg0r")]
+hit_stagger = 8.0
+player = NodePath("..")
+
+[node name="HurtboxCollider" type="CollisionShape3D" parent="HurtboxComponent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("ConvexPolygonShape3D_qfnet")
+
+[node name="MoveComponent" parent="." node_paths=PackedStringArray("player", "head", "camera", "input") instance=ExtResource("6_tuyoq")]
+move_speed = 5.0
+sprint_mult = 1.6
+player = NodePath("..")
+head = NodePath("../Head")
+camera = NodePath("../Head/Camera3D")
+input = NodePath("../InputComponent")
+
+[node name="InputComponent" parent="." node_paths=PackedStringArray("move_component", "weapon_manager", "fp_camera") instance=ExtResource("7_fjrip")]
+move_component = NodePath("../MoveComponent")
+weapon_manager = NodePath("../WeaponManager")
+fp_camera = NodePath("../Head")
+
+[node name="WeaponManager" type="Node3D" parent="." node_paths=PackedStringArray("current_cam")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0116296, 0)
+script = ExtResource("10_y4r1p")
+current_cam = NodePath("../Head/Camera3D")
+weapon_attributes = SubResource("Resource_d2wvv")
+
+[node name="Slot1" type="Node3D" parent="WeaponManager"]
+
+[node name="Pistol" parent="WeaponManager/Slot1" instance=ExtResource("2_dqkch")]
+transform = Transform3D(0.9968308, 0, 0.07953775, 0, 1, 0, -0.07953775, 0, 0.9968308, 0.534, -0.7, -0.551)
+
+[node name="Slot2" type="Node3D" parent="WeaponManager"]
+
+[node name="Sharkgun" parent="WeaponManager/Slot2" instance=ExtResource("3_qlg0r")]
+transform = Transform3D(0.29999998, 0, 0, 0, 0.29999998, 0, 0, 0, 0.29999998, 0.5054717, -0.59626746, -0.767704)
+
+[node name="Slot3" type="Node3D" parent="WeaponManager"]
+
+[node name="Grog_bottle" parent="WeaponManager/Slot3" instance=ExtResource("12_3v2ag")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6026932, -0.58280015, -0.8424623)
+
+[node name="Slot4" type="Node3D" parent="WeaponManager"]
+
+[node name="Slot5" type="Node3D" parent="WeaponManager"]

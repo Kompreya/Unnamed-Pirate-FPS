@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bggves8r8pmkp"]
+
+[ext_resource type="Script" uid="uid://cq3j12qr6c4a8" path="res://scripts/enemies/components/body_parts_component.gd" id="1_v8wvn"]
+
+[node name="BodyPartsComponent" type="Node3D"]
+script = ExtResource("1_v8wvn")

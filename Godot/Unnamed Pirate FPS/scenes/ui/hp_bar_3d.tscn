@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmqy7eph7j0pf"]
+
+[ext_resource type="Texture2D" uid="uid://dwv0ovyvu3j7f" path="res://assets/textures/barHorizontal_red_mid 200.png" id="1_8wfoj"]
+
+[node name="HPBar3D" type="TextureProgressBar"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -13.0
+offset_right = 100.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 100.0
+texture_progress = ExtResource("1_8wfoj")
+
+[node name="HP" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2

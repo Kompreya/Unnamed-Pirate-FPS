@@ -1,0 +1,68 @@
+[gd_scene load_steps=4 format=3 uid="uid://ceh2pk5x3muu3"]
+
+[ext_resource type="PackedScene" uid="uid://br81pnahxjeil" path="res://scenes/sell_weapon.tscn" id="1_dhtuv"]
+[ext_resource type="Script" uid="uid://btrvvvfb0uwmg" path="res://scripts/weapon_shop.gd" id="1_rr21f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w5nbr"]
+bg_color = Color(0.491556, 0.5651934, 0.95386857, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.87, 0.782565, 0.2871, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="Weapon_Shop" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 1
+script = ExtResource("1_rr21f")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -357.0
+offset_top = -170.0
+offset_right = 357.0
+offset_bottom = 170.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_w5nbr")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -310.0
+offset_top = -75.0
+offset_right = 310.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SellWeapon" parent="Panel/HBoxContainer" instance=ExtResource("1_dhtuv")]
+layout_mode = 2
+
+[node name="ShopMessage" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -258.0
+offset_top = 10.0
+offset_right = 258.0
+offset_bottom = 71.0
+grow_horizontal = 2
+
+[connection signal="purchase_failed" from="Panel/HBoxContainer/SellWeapon" to="." method="_on_sell_weapon_purchase_failed"]
+[connection signal="purchase_succeed" from="Panel/HBoxContainer/SellWeapon" to="." method="_on_sell_weapon_purchase_succeed"]

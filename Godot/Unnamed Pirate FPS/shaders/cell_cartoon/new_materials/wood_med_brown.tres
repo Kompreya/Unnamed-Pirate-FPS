@@ -1,0 +1,21 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://dcrwucr211yql"]
+
+[ext_resource type="Shader" uid="uid://csls3mmcsqyom" path="res://shaders/cell_cartoon/outline.gdshader" id="1_3mixf"]
+[ext_resource type="Shader" uid="uid://cg8tqgarp0rjb" path="res://shaders/cell_cartoon/cel-shader-base.gdshader" id="2_e34h8"]
+[ext_resource type="Texture2D" uid="uid://b6wymmrt2dqgx" path="res://shaders/cell_cartoon/diffuse-texture.tres" id="3_li50t"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_etyql"]
+render_priority = 0
+shader = ExtResource("1_3mixf")
+
+[resource]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_etyql")
+shader = ExtResource("2_e34h8")
+shader_parameter/color = Color(0.43, 0.33468333, 0.2795, 1)
+shader_parameter/specular = Color(0.02, 0.02, 0.02, 0.8627451)
+shader_parameter/specular_texture = ExtResource("3_li50t")
+shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.11764706)
+shader_parameter/fresnel_texture = ExtResource("3_li50t")
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)

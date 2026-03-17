@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://d0sxcskem1scp"]
+
+[ext_resource type="Script" uid="uid://c6nv28sfujj5a" path="res://scripts/blood_splatter.gd" id="1_4ixp3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7qcpu"]
+albedo_color = Color(0.712692, 2.9359758e-06, 5.7756904e-07, 1)
+roughness = 0.1
+emission_enabled = true
+emission = Color(0.73090494, 0.21973377, 0.17027509, 1)
+emission_energy_multiplier = 0.4
+
+[sub_resource type="Curve" id="Curve_4ixp3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_jhjh3"]
+curve = SubResource("Curve_4ixp3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qoec3"]
+direction = Vector3(0, 0, -1)
+spread = 25.0
+initial_velocity_min = 6.0
+initial_velocity_max = 8.0
+scale_curve = SubResource("CurveTexture_jhjh3")
+
+[sub_resource type="SphereMesh" id="SphereMesh_wcb2d"]
+radius = 0.04
+height = 0.08
+
+[node name="Blood_Splatter" type="Node3D"]
+script = ExtResource("1_4ixp3")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_7qcpu")
+emitting = false
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_qoec3")
+draw_pass_1 = SubResource("SphereMesh_wcb2d")

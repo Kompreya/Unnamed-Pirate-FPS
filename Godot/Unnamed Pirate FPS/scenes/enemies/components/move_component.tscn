@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://diq0ntk18w4gv"]
+
+[ext_resource type="Script" uid="uid://b72178awdy3s0" path="res://scripts/enemies/components/move_component.gd" id="1_7t7v5"]
+[ext_resource type="Script" uid="uid://c8tf5brgev1e0" path="res://scripts/enemies/enemy_stats.gd" id="2_d3tbe"]
+
+[sub_resource type="Resource" id="Resource_6y1uu"]
+resource_local_to_scene = true
+script = ExtResource("2_d3tbe")
+metadata/_custom_type_script = "uid://c8tf5brgev1e0"
+
+[node name="MoveComponent" type="Node3D"]
+script = ExtResource("1_7t7v5")
+enemy_stats = SubResource("Resource_6y1uu")

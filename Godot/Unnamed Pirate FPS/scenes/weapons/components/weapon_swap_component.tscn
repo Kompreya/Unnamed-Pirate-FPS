@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://jud0dfh3eec"]
+
+[ext_resource type="Script" uid="uid://dhnxa3u8wqed1" path="res://scripts/weapons/components/weapon_swap_component.gd" id="1_mcptb"]
+
+[node name="WeaponSwapComponent" type="Node3D"]
+script = ExtResource("1_mcptb")

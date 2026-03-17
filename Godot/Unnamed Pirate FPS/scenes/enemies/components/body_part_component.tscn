@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://df2gaihk3akj"]
+
+[ext_resource type="Script" uid="uid://cgrxu2vy6xnab" path="res://scripts/enemies/components/body_part_component.gd" id="1_fpenb"]
+[ext_resource type="Script" uid="uid://c8tf5brgev1e0" path="res://scripts/enemies/enemy_stats.gd" id="2_lph8n"]
+
+[sub_resource type="Resource" id="Resource_723xb"]
+resource_local_to_scene = true
+script = ExtResource("2_lph8n")
+metadata/_custom_type_script = "uid://c8tf5brgev1e0"
+
+[node name="BodyPartComponent" type="Area3D" groups=["enemy", "enemybodypart"]]
+transform = Transform3D(1, 0, -8.940697e-08, -7.450581e-09, 0.9999999, -2.7939677e-08, -2.9802322e-08, -2.0489097e-08, 0.9999998, 0, 0, 0)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_fpenb")
+enemy_stats = SubResource("Resource_723xb")

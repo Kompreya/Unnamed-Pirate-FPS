@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dewt1aisx55x3"]
+
+[ext_resource type="Script" uid="uid://ctsioueuafpfx" path="res://scripts/weapons/components/reload_component.gd" id="1_ap2fb"]
+
+[node name="ReloadComponent" type="Node3D"]
+script = ExtResource("1_ap2fb")

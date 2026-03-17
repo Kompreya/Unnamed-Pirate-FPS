@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://ct3ep2xfrl6m2"]
+
+[ext_resource type="Script" uid="uid://4b15s550m3c6" path="res://scripts/bullet_collision_spark.gd" id="1_1oifp"]
+[ext_resource type="Shader" uid="uid://csls3mmcsqyom" path="res://shaders/cell_cartoon/outline.gdshader" id="2_yob7g"]
+[ext_resource type="Shader" uid="uid://bgk7vnwr74hfo" path="res://shaders/cell_cartoon/cel-shader-emission.gdshader" id="3_qlxjx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gxas7"]
+render_priority = 0
+shader = ExtResource("2_yob7g")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1jyc8"]
+resource_local_to_scene = true
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_gxas7")
+shader = ExtResource("3_qlxjx")
+shader_parameter/emission = Color(1, 0.100000024, 0, 1)
+shader_parameter/emission_energy = 100.0
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.80784315)
+shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0)
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1oifp"]
+lifetime_randomness = 1.0
+angle_min = 1.0728835e-05
+angle_max = 90.000015
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 3.0
+initial_velocity_max = 5.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_dq203"]
+radius = 0.02
+height = 0.2
+
+[node name="Bullet_Collision" type="Node3D"]
+script = ExtResource("1_1oifp")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_1jyc8")
+emitting = false
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_1oifp")
+draw_pass_1 = SubResource("CapsuleMesh_dq203")
+
+[connection signal="finished" from="GPUParticles3D" to="." method="_on_gpu_particles_3d_finished"]

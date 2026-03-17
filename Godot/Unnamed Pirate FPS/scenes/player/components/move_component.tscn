@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://h640yup3gw1w"]
+
+[ext_resource type="Script" uid="uid://ekm1x50i0dqp" path="res://scripts/player/components/move_component.gd" id="1_dmucg"]
+
+[node name="MoveComponent" type="Node3D"]
+script = ExtResource("1_dmucg")

@@ -1,0 +1,35 @@
+[gd_scene load_steps=9 format=3 uid="uid://cle4bcbvfll5i"]
+
+[ext_resource type="Script" uid="uid://c76ac2h6ejs0f" path="res://scripts/waves/wave_manager.gd" id="1_8fe1o"]
+[ext_resource type="Script" uid="uid://c7xd75urhf8ja" path="res://scripts/waves/wave.gd" id="2_na16q"]
+[ext_resource type="Script" uid="uid://bcev055yyxljy" path="res://scripts/waves/enemy_sequence.gd" id="3_68qdn"]
+[ext_resource type="PackedScene" uid="uid://mls5hdaqs587" path="res://scenes/pirate_enemy_reworked.tscn" id="4_k3by3"]
+
+[sub_resource type="Resource" id="Resource_gsp50"]
+script = ExtResource("3_68qdn")
+enemy = ExtResource("4_k3by3")
+enemy_amount = 5
+spawn_freq = 5.0
+metadata/_custom_type_script = "uid://bcev055yyxljy"
+
+[sub_resource type="Resource" id="Resource_x3ylx"]
+script = ExtResource("2_na16q")
+enemy_sequences = Array[ExtResource("3_68qdn")]([SubResource("Resource_gsp50")])
+metadata/_custom_type_script = "uid://c7xd75urhf8ja"
+
+[sub_resource type="Resource" id="Resource_na16q"]
+script = ExtResource("3_68qdn")
+enemy = ExtResource("4_k3by3")
+enemy_amount = 5
+spawn_freq = 10.0
+metadata/_custom_type_script = "uid://bcev055yyxljy"
+
+[sub_resource type="Resource" id="Resource_68qdn"]
+script = ExtResource("2_na16q")
+enemy_sequences = Array[ExtResource("3_68qdn")]([SubResource("Resource_na16q")])
+metadata/_custom_type_script = "uid://c7xd75urhf8ja"
+
+[node name="Wave Manager" type="Node3D" node_paths=PackedStringArray("spawn_points")]
+script = ExtResource("1_8fe1o")
+spawn_points = [NodePath("."), null]
+wave_data = Array[ExtResource("2_na16q")]([SubResource("Resource_x3ylx"), SubResource("Resource_68qdn")])
