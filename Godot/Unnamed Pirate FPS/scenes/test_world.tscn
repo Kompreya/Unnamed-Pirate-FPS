@@ -806,7 +806,7 @@ wait_time = 5.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17725301, -11.61981)
 
 [node name="Pirate Enemy" parent="." instance=ExtResource("24_4ehwd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.183647, 0.013703287, 16.683132)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.450462, 0.0275523, 17.253073)
 
 [connection signal="wave_end" from="Wave Manager" to="UI/Wave Intermission Window" method="_on_wave_manager_wave_end"]
 [connection signal="next_wave" from="UI/Wave Intermission Window" to="Wave Manager" method="_on_wave_intermission_window_next_wave"]
