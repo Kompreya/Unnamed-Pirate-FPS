@@ -21,7 +21,7 @@ func _ready() -> void:
 	#enemy_stats.rum_tipsy.connect(_tipsy)
 	#enemy_stats.rum_sober.connect(_sober)
 
-func register_body_part(body_part) -> void:
+func register_body_part(body_part: Area3D) -> void:
 	if body_part not in body_parts:
 		body_parts.append(body_part)
 		print("Body part " + str(body_part) + "registered!")
@@ -58,7 +58,7 @@ func tickdown_rum_stackamt() -> void:
 	enemy_stats.rum_stacks = max(enemy_stats.rum_stacks - 1, 0)
 
 	#body part stack amts
-	for part in body_parts:
+	for part:Area3D in body_parts:
 		if part.enemy_stats.rum_stacks > 0:
 			part.enemy_stats.rum_stacks -= 1
 			print("Body part " + str(part) + " remaining rum: " + str(part.enemy_stats.rum_stacks))

@@ -595,12 +595,13 @@ _data = {
 [sub_resource type="SphereShape3D" id="SphereShape3D_15nn3"]
 radius = 1.5
 
-[node name="Treasure Chest" type="RigidBody3D"]
+[node name="Treasure Chest" type="RigidBody3D" node_paths=PackedStringArray("loot_spawn_pos")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_cybol")
 chest_loot = SubResource("Resource_31jp6")
+loot_spawn_pos = NodePath("Loot_Spawn")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5298462, 0)

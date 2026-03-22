@@ -3,10 +3,7 @@
 extends Node3D
 class_name EnemyMeleeComponent
 
-var player = null
-var state_machine
-
-@export var player_path := "/root/World/Player"
+var player: Node = null
 
 @export var enemy_stats: EnemyStats
 @export var anim_tree: AnimationTree
@@ -23,11 +20,8 @@ var state_machine
 
 var is_target_in_zone: bool = false: set = _on_zone_transition
 
-@onready var anim_track = anim.get_animation("animation_pack/attack")
-
 func _ready() -> void:
-	state_machine = anim_tree.get("parameters/playback")
-	player = get_node(player_path)
+	player = get_tree().get_first_node_in_group("player")
 	zone_one.area_entered.connect(_attack_zone_one.bind("entered"))
 	zone_one.area_exited.connect(_attack_zone_one.bind("exited"))
 

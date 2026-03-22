@@ -3,9 +3,7 @@
 extends Node3D
 class_name ExplosionComponent
 
-var player = null
-
-@export var player_path := "/root/World/Player"
+var player: Node = null
 
 @export var enemy_stats: EnemyStats
 
@@ -16,16 +14,16 @@ var player = null
 
 func _ready() -> void:
 	explosion_coll.shape.radius = enemy_stats.base_explosion_radius
-	player = get_node(player_path)
+	player = get_tree().get_first_node_in_group("player")
 
-func detonate(in_range) -> void:
+func detonate(in_range: bool) -> void:
 	anim_tree.set("parameters/conditions/attack", in_range)
 	anim_tree.set("parameters/attack/TimeScale/scale", enemy_stats.base_detonation_timer)
 
 func explode() -> void:
 	if global_position.distance_to(player.global_position) < enemy_stats.current_explosion_radius:
-		var dir = global_position.direction_to(player.global_position)
-		var damage = enemy_stats.current_explosion_damage
+		var dir: Vector3 = global_position.direction_to(player.global_position)
+		var damage: int = enemy_stats.current_explosion_damage
 		SignalBus.emit_signal("player_hit", dir, damage)
 		print("exploded")
 	get_parent().queue_free()

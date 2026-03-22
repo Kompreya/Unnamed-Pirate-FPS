@@ -4595,12 +4595,12 @@ disabled = true
 remote_path = NodePath("../../../../../BodyPartsComponent/LeftUpperLeg")
 
 [node name="Physical Bone LeftLowerLeg" type="PhysicalBone3D" parent="armature/GeneralSkeleton/PhysicalBoneSimulator3D"]
-transform = Transform3D(-1.4298555, 0.23511142, 0.025200648, 0.008399935, -0.10385492, 1.4455252, 0.23630889, 1.4263015, 0.101100594, 0.17644973, 0.48526007, 0.013884434)
+transform = Transform3D(-1.4298555, 0.23511142, 0.025200646, 0.008399935, -0.10385492, 1.445525, 0.23630889, 1.4263015, 0.10110059, 0.17644973, 0.48526007, 0.013884434)
 collision_layer = 2
 collision_mask = 2
 joint_type = 1
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0052868202, -0.0033864342, 0.24016826)
-body_offset = Transform3D(-1.4298555, 0.23511142, 0.025200648, -0.008399935, 0.10385492, -1.445525, -0.23630889, -1.4263015, -0.101100594, 0.002303183, 0.3475653, 0.020700395)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0052868202, -0.0033864323, 0.24016821)
+body_offset = Transform3D(-1.4298555, 0.23511142, 0.02520065, -0.008399935, 0.10385492, -1.4455252, -0.23630889, -1.4263015, -0.101100594, 0.002303183, 0.3475653, 0.020700395)
 bone_name = "LeftLowerLeg"
 joint_constraints/bias = 0.3
 joint_constraints/damping = 1.0
@@ -4898,7 +4898,7 @@ transform = Transform3D(0.99999994, -4.4703484e-08, 0, 0, 1.1920929e-07, 1, 0, -
 shape = SubResource("CapsuleShape3D_g25j6")
 
 [node name="LeftLowerLeg" parent="BodyPartsComponent" instance=ExtResource("21_ss4bh")]
-transform = Transform3D(0.9866003, -0.16222702, -0.01738846, 0.0057959557, -0.07165989, 0.9974124, -0.16305327, -0.984148, -0.069759406, -0.12175032, 0.33482945, -0.009580241)
+transform = Transform3D(0.9866003, -0.16222702, -0.017388457, 0.0057959557, -0.07165989, 0.99741226, -0.16305327, -0.984148, -0.069759406, -0.12175032, 0.33482945, -0.009580241)
 body_part = 9
 enemy_stats = SubResource("Resource_esii5")
 

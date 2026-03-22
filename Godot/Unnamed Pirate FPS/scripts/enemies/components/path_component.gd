@@ -1,9 +1,12 @@
 @icon("res://addons/plenticons/icons/16x/creatures/eye-hollow-yellow.png")
 
+#TODO When player is dead, pathing needs to failsafe. Furthermore, animate enemies after player death, victorious?
+
 extends Node3D
 class_name EnemyPathComponent
 
 enum PathRoutes {
+	TO_NOWHERE,
 	TO_PLAYER,
 	TO_RANDOM_OBJECT,
 	TO_RANDOM_LOCATION
@@ -11,9 +14,7 @@ enum PathRoutes {
 
 @export var path_route: PathRoutes
 
-var player = null
-
-@export var player_path := "/root/World/Player"
+var player: Node = null
 
 @export var state_component: EnemyStateComponent
 @export var move_component: Node3D
@@ -39,7 +40,7 @@ var random_loc: Vector3
 
 func _ready() -> void:
 	SignalBus.drunk_status_changed.connect(_change_path_route)
-	player = get_node(player_path)
+	player = get_tree().get_first_node_in_group("player")
 	_get_random_object()
 	_randomize_comparitor_time()
 
@@ -76,8 +77,8 @@ func path_to_random_object() -> void:
 
 func _setup_random_objects() -> Array:
 	var random_targets: Array = []
-	var random_target_nodes = get_tree().get_nodes_in_group("random_target")
-	for node in random_target_nodes:
+	var random_target_nodes: Array[Node] = get_tree().get_nodes_in_group("random_target")
+	for node:Node in random_target_nodes:
 		random_targets.append(node)
 	return random_targets
 
@@ -93,7 +94,7 @@ func path_to_random_loc() -> void:
 	next_nav_point = nav_agent.get_next_path_position()
 
 func _get_random_loc() -> void:
-	var rand_range = randf_range(5, 10)
+	var rand_range: float = randf_range(5, 10)
 	random_loc = Vector3(randf_range(-rand_range, rand_range), 0, randf_range(-rand_range, rand_range))
 
 func _randomize_comparitor_time() -> void:

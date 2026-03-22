@@ -1,14 +1,14 @@
 extends Resource
 class_name ClassesAttributes
 
-enum classlist {
+enum ClassList {
 	USELESS,
 	SWASHBUCKLER,
 	GUNNER,
 	POWDER_MONKEY,
 }
 
-enum attributelist {
+enum AttributeList {
 	NONE,
 	HUMANOID,
 	UNDEAD,
@@ -16,12 +16,12 @@ enum attributelist {
 	GHOST,
 }
 
-enum ranklist {
+enum RankList {
 	CAPTAIN,
 	FIRST_MATE,
 	SECOND_MATE,
 	CREW_MATE
 }
 
-@export var classes: classlist
-@export var attributes: attributelist
+@export var classes: ClassList
+@export var attributes: AttributeList

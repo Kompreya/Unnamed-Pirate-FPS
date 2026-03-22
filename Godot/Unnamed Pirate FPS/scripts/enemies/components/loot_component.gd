@@ -5,8 +5,6 @@ extends Node3D
 # Called in animation tree
 # The instance position IS the position of the node. Adjust node pos in 3D as needed
 
-var instance
-
 @onready var loot_global_node: Node = get_node("/root/DropHandler/Chest_Loot")
 
 @export var enemy_loot: LootTable
@@ -18,6 +16,7 @@ func spawn_loot() -> void:
 	var rolls: int = enemy_loot.randomize_amount()
 	var loot_pos: Vector3 = self.global_position
 	for i:int in range(rolls):
+		var instance: Node3D
 		var random_loot: PackedScene = enemy_loot._randomize_loot()
 		instance = random_loot.instantiate()
 

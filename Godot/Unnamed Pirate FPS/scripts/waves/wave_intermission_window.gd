@@ -21,6 +21,6 @@ func _on_button_pressed() -> void:
 
 
 func _on_curse_test_pressed() -> void:
-	var health_buff = CurseManager.health_buff
+	var health_buff: Resource = CurseManager.health_buff
 	CurseManager.buff_stacks[health_buff] += 1
 	print("Curse clicked " + str(CurseManager.buff_stacks[health_buff]))

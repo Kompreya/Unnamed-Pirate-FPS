@@ -1,6 +1,5 @@
 extends Node3D
 
-var instance
 @export var nav_region: NavigationRegion3D
 
 @export var wave_data: Array[Wave]
@@ -96,6 +95,7 @@ func start_bonus_seq(current_wave: Wave) -> void:
 		print("bonus end " + str(seq_outstnd_i))
 
 func spawn_enemy(enemy_seq: EnemySequence) -> void:
+	var instance: Node3D
 
 	var random_enemy: PackedScene = _get_random_enemy(enemy_seq)
 	instance = random_enemy.instantiate()
@@ -107,6 +107,8 @@ func spawn_enemy(enemy_seq: EnemySequence) -> void:
 	print("enemy spawned at " + str(spawn_loc))
 
 func spawn_bonus(bonus_seq: BonusSequence) -> void:
+	var instance: Node3D
+
 	var random_bonus: PackedScene = _get_random_bonus(bonus_seq)
 	instance = random_bonus.instantiate()
 

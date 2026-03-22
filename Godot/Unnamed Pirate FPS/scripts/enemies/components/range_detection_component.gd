@@ -9,10 +9,7 @@ var in_melee_range: bool = false
 var in_gun_range: bool = false
 var in_explosion_range: bool = false
 
-var player = null
-var state_machine
-
-@export var player_path := "/root/World/Player"
+var player: Node = null
 
 @export var enemy_stats: EnemyStats
 @export var parent: CharacterBody3D
@@ -22,15 +19,14 @@ var state_machine
 @export var melee_component: EnemyMeleeComponent
 @export var gun_component: Node3D
 
-@onready var classes = parent.classes_attributes.classes
-@onready var classlist = parent.classes_attributes.classlist
+@onready var classes: ClassesAttributes.ClassList = parent.classes_attributes.classes
 
 func _ready() -> void:
-	player = get_node(player_path)
+	player = get_tree().get_first_node_in_group("player")
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	match classes:
-		classlist.SWASHBUCKLER:
+		ClassesAttributes.ClassList.SWASHBUCKLER:
 				in_melee_range = player_in_melee_range()
 				#if melee_component:
 					#melee_component.attack(in_melee_range)
@@ -50,21 +46,21 @@ func _process(delta: float) -> void:
 					#path_component.path_to_player(delta, in_explosion_range)
 
 func player_in_melee_range() -> bool:
-	var check_range = global_position.distance_to(player.global_position) < melee_component.enemy_stats.current_melee_range
+	var check_range: bool = global_position.distance_to(player.global_position) < melee_component.enemy_stats.current_melee_range
 	if check_range:
 		return true
 	else:
 		return false
 
 func player_in_explosion_range() -> bool:
-	var check_range = global_position.distance_to(player.global_position) < explosion_component.enemy_stats.current_explosion_radius
+	var check_range: bool = global_position.distance_to(player.global_position) < explosion_component.enemy_stats.current_explosion_radius
 	if check_range:
 		return true
 	else:
 		return false
 
 func player_in_gun_range() -> bool:
-	var check_range = global_position.distance_to(player.global_position) < gun_component.enemy_stats.current_ranged_range
+	var check_range: bool = global_position.distance_to(player.global_position) < gun_component.enemy_stats.current_ranged_range
 	if check_range:
 		return true
 	else:

@@ -3,13 +3,11 @@
 extends Node3D
 class_name GunComponent
 
-var player = null
+var player: Node = null
 var state_machine
-var instance
 
-@export var player_path := "/root/World/Player"
 
-@onready var bullets_global_node = get_node("/root/MunitionsEmitters/Bullets")
+@onready var bullets_global_node: Node = get_node("/root/MunitionsEmitters/Bullets")
 
 @export var enemy_stats: EnemyStats
 @export var munitions: MunitionList
@@ -27,14 +25,15 @@ var instance
 		can_aim = value
 
 func _ready() -> void:
-	player = get_node(player_path)
+	player = get_tree().get_first_node_in_group("player")
+	#TODO Modify this to use state component, get rid of travel state approach
 	state_machine = anim_tree.get("parameters/playback")
 
 func _process(_delta: float) -> void:
 	pass
 
-func shoot(in_range) -> void:
-	var anim_track = anim.get_animation("animation_pack/rifle_fire")
+func shoot(in_range: bool) -> void:
+	var anim_track: Animation = anim.get_animation("animation_pack/rifle_fire")
 	if in_range:
 		aim()
 		anim_track.loop_mode = (Animation.LOOP_LINEAR)
@@ -50,17 +49,18 @@ func aim() -> void:
 
 func pull_trigger() -> void:
 	if ray_cast_component:
+		var instance: Node3D
 		instance = munitions.steel_bullet.instantiate()
 		instance.init_bullet(enemy_stats.current_attack_damage)
 		gun_barrel.force_raycast_update()
 		instance.position = gun_barrel.global_position
 		var aim_target: Vector3 = ray_cast_component.get_target()
-		var bullet_dir = (aim_target - gun_barrel.global_position).normalized()
+		var bullet_dir: Vector3 = (aim_target - gun_barrel.global_position).normalized()
 		instance.transform.basis = Basis.looking_at(bullet_dir, Vector3.UP)
 		bullets_global_node.add_child(instance)
 
-func _hit_finished():
+func _hit_finished() -> void:
 	if global_position.distance_to(player.global_position) < enemy_stats.current_ranged_range + 1.0:
-		var dir = global_position.direction_to(player.global_position)
-		var damage = enemy_stats.current_attack_damage
+		var dir: Vector3 = global_position.direction_to(player.global_position)
+		var damage: int = enemy_stats.current_attack_damage
 		player.hit(dir, damage)

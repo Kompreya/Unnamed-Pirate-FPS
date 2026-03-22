@@ -3,9 +3,6 @@
 extends Node3D
 class_name EnemyMoveComponent
 
-var velocity
-var state_machine
-
 @export var state_component: EnemyStateComponent
 @export var enemy_stats: EnemyStats
 @export var path_component: EnemyPathComponent
@@ -13,19 +10,14 @@ var state_machine
 @export var anim_tree: AnimationTree
 @export var parent: CharacterBody3D
 
-@onready var classes = parent.classes_attributes.classes
-@onready var classlist = parent.classes_attributes.classlist
-
 @export var can_move: bool = true:
 	set(value):
 		can_move = value
 
 func _ready() -> void:
 	SignalBus.drunk_status_changed.connect(_change_move_state)
-	state_machine = anim_tree.get("parameters/playback")
 
 func _process(delta: float) -> void:
-	velocity = Vector3.ZERO
 	if !can_move:
 		return
 	match state_component.move_state:
@@ -33,16 +25,17 @@ func _process(delta: float) -> void:
 			stop()
 		state_component.MoveStateList.WALK:
 			walk(delta)
+		#TODO Need walk states in state component
 		#state_component.MoveStateList.DRUNK_WALK:
 			#drunk_walk(delta)
 
-func walk(_delta) -> void:
+func walk(_delta: float) -> void:
 	parent.velocity = (path_component.next_nav_point - parent.global_transform.origin).normalized() * enemy_stats.current_move_speed
 
 	parent.rotation.y = lerp_angle(parent.rotation.y, atan2(-parent.velocity.x, -parent.velocity.z), _delta * 10.0)
 	parent.move_and_slide()
 
-func drunk_walk(_delta) -> void:
+func drunk_walk(_delta: float) -> void:
 	parent.velocity = (path_component.next_nav_point - parent.global_transform.origin).normalized() * (enemy_stats.current_move_speed / 2)
 	parent.rotation.y = lerp_angle(parent.rotation.y, atan2(-parent.velocity.x, -parent.velocity.z), _delta * 10.0)
 	parent.move_and_slide()

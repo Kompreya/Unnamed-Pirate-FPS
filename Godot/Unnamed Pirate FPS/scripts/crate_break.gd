@@ -1,10 +1,10 @@
 extends Node3D
 
 @export var intensity: float = 8.0
-@onready var vanish_anim = $AnimationPlayer
+@onready var vanish_anim: AnimationPlayer = $AnimationPlayer
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	for pieces in self.get_children():
+	for pieces:Node3D in self.get_children():
 		if pieces is RigidBody3D:
 			pieces.apply_impulse(pieces.get_child(0).position * intensity, self.global_position)
 	await get_tree().create_timer(3).timeout
@@ -13,5 +13,5 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
-func delete():
+func delete() -> void:
 	call_deferred("queue_free")
