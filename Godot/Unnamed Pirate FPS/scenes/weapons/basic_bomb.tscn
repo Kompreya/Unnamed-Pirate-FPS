@@ -66,10 +66,13 @@ albedo_color = Color(1, 0, 0, 0.78431374)
 radius = 2.0
 height = 4.0
 
-[node name="Bomb" type="RigidBody3D"]
+[node name="Bomb" type="RigidBody3D" node_paths=PackedStringArray("explosion_timer", "explosion_area", "explosion_visual")]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_vpdcx")
+explosion_timer = NodePath("Explosion_Timer")
+explosion_area = NodePath("Area3D")
+explosion_visual = NodePath("Explosion_Visualizer")
 
 [node name="Prop_Bomb" type="MeshInstance3D" parent="."]
 transform = Transform3D(100, 0, 0, 0, 100, -4.371139e-06, 0, 4.371139e-06, 100, 0, 0, 0)
@@ -95,7 +98,7 @@ collision_mask = 3
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("SphereShape3D_j15uc")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Explosion_Visualizer" type="MeshInstance3D" parent="."]
 visible = false
 material_override = SubResource("StandardMaterial3D_vpdcx")
 mesh = SubResource("SphereMesh_j15uc")

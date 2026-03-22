@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-var player_stats = PlayerStats
+var player_stats: Node = PlayerStats
 
 
 	## Shooting
@@ -41,7 +41,7 @@ var player_stats = PlayerStats
 			#if aim_ray.get_collider().is_in_group("enemy"):
 				#var instance_blood
 				#instance_blood = blood_splatter.instantiate()
-				#emitters_global_node.add_child(instance_blood)		
+				#emitters_global_node.add_child(instance_blood)
 				#instance_blood.global_transform.origin = collision_point
 				#instance_blood.look_at(collision_point + collision_normal, Vector3.UP)
 				#aim_ray.get_collider().hit()
@@ -54,7 +54,7 @@ var player_stats = PlayerStats
 				#instance_spark.global_transform.origin = collision_point
 				#instance_spark.look_at(collision_point + collision_normal, Vector3.UP)
 		#bullets_global_node.add_child(instance)
-		
+
 
 #func _lower_weapon():
 	#match weapon:

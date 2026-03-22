@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-@onready var hit_rect = $ColorRect
+@onready var hit_rect: ColorRect = $ColorRect
 var player_stats: PlayerStats
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _ready() -> void:
@@ -10,7 +10,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	$"Coins/Coin Counter Box/Count".text = str(PlayerStats.current_treasure)
 
-func update_hp(cur_hp, max_hp):
+func update_hp(cur_hp: int, max_hp: int) -> void:
 	$"HP/HP Box/TextureProgressBar".max_value = max_hp
 	$"HP/HP Box/TextureProgressBar".value = cur_hp
 	$"HP/HP Box/TextureProgressBar/HP_Amount".text = str(cur_hp) + "/" + str(max_hp)

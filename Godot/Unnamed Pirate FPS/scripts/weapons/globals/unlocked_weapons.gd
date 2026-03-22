@@ -1,6 +1,6 @@
 extends Node
 
-var weapon_list = WeaponList
+var weapon_list: Resource = WeaponList
 
 var unlocked_steel_weapons: Dictionary = {
 	"flock_pistol": true,

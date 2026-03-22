@@ -1,6 +1,8 @@
 extends Resource
 class_name EnemyStats
 
+@warning_ignore_start("unused_signal")
+
 enum BuffableStats {
 	MAX_HEALTH,
 	ATTACK_DAMAGE,

@@ -7,7 +7,7 @@ extends Node3D
 
 var instance
 
-@onready var loot_global_node = get_node("/root/DropHandler/Chest_Loot")
+@onready var loot_global_node: Node = get_node("/root/DropHandler/Chest_Loot")
 
 @export var enemy_loot: LootTable
 # Called when the node enters the scene tree for the first time.
@@ -15,15 +15,15 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func spawn_loot() -> void:
-	var rolls = enemy_loot.randomize_amount()
-	var loot_pos = self.global_position
-	for i in range(rolls):
-		var random_loot = enemy_loot._randomize_loot()
+	var rolls: int = enemy_loot.randomize_amount()
+	var loot_pos: Vector3 = self.global_position
+	for i:int in range(rolls):
+		var random_loot: PackedScene = enemy_loot._randomize_loot()
 		instance = random_loot.instantiate()
 
 		instance.position = loot_pos
 
-		var up_force = 5
-		var out_force = 3
+		var up_force: int = 5
+		var out_force: int = 3
 		loot_global_node.add_child(instance)
 		instance.apply_central_impulse(Vector3(randf_range(-out_force, out_force), up_force, randf_range(-out_force, out_force)))

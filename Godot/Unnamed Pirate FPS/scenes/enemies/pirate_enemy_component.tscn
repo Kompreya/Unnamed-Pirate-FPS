@@ -19,7 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://ci3rlv84a4l7b" path="res://scenes/enemies/components/path_component.tscn" id="14_pxb3f"]
 [ext_resource type="PackedScene" uid="uid://diq0ntk18w4gv" path="res://scenes/enemies/components/move_component.tscn" id="14_x6rvu"]
 [ext_resource type="PackedScene" uid="uid://dua2hufryum41" path="res://scenes/enemies/components/melee_component.tscn" id="16_f63th"]
-[ext_resource type="Script" uid="uid://dswhu160wes8v" path="res://scripts/enemies/components/poise_component.gd" id="19_ppxxn"]
+[ext_resource type="Script" uid="uid://dswhu160wes8v" path="res://scripts/enemies/components/status_component.gd" id="19_ppxxn"]
 [ext_resource type="PackedScene" uid="uid://d0dimiynivhwl" path="res://scenes/enemies/components/defense_component.tscn" id="20_2658y"]
 [ext_resource type="PackedScene" uid="uid://bggves8r8pmkp" path="res://scenes/enemies/components/body_parts_component.tscn" id="21_lxwwq"]
 

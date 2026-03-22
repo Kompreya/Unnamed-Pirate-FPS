@@ -3,20 +3,10 @@
 extends Node3D
 class_name EnemyMoveComponent
 
-enum MoveStates {
-	STOP,
-	WALK,
-	DRUNK_WALK,
-	RUN,
-}
-
-@export var move_state: MoveStates
-
-
-
 var velocity
 var state_machine
 
+@export var state_component: EnemyStateComponent
 @export var enemy_stats: EnemyStats
 @export var path_component: EnemyPathComponent
 @export var range_det_component: EnemyRangeDetectComponent
@@ -38,62 +28,37 @@ func _process(delta: float) -> void:
 	velocity = Vector3.ZERO
 	if !can_move:
 		return
-	match move_state:
-		MoveStates.STOP:
+	match state_component.move_state:
+		state_component.MoveStateList.STOP:
 			stop()
-		MoveStates.WALK:
+		state_component.MoveStateList.WALK:
 			walk(delta)
-		MoveStates.DRUNK_WALK:
-			drunk_walk(delta)
+		#state_component.MoveStateList.DRUNK_WALK:
+			#drunk_walk(delta)
 
 func walk(_delta) -> void:
-	#match classes:
-		#classlist.SWASHBUCKLER:
-			#anim_tree.set("parameters/conditions/walk", !range_det_component.in_melee_range)
-		#classlist.GUNNER:
-			#anim_tree.set("parameters/conditions/rifle_walk", !range_det_component.in_gun_range)
-		#classlist.POWDER_MONKEY:
-			#anim_tree.set("parameters/conditions/walk", !range_det_component.in_explosion_range)
 	parent.velocity = (path_component.next_nav_point - parent.global_transform.origin).normalized() * enemy_stats.current_move_speed
 
 	parent.rotation.y = lerp_angle(parent.rotation.y, atan2(-parent.velocity.x, -parent.velocity.z), _delta * 10.0)
 	parent.move_and_slide()
 
 func drunk_walk(_delta) -> void:
-	#match classes:
-		#classlist.SWASHBUCKLER:
-			#anim_tree.set("parameters/conditions/drunk_walk", !range_det_component.in_melee_range)
-		#classlist.GUNNER:
-			#anim_tree.set("parameters/conditions/rifle_walk", !range_det_component.in_gun_range)
-		#classlist.POWDER_MONKEY:
-			#anim_tree.set("parameters/conditions/drunk_walk", !range_det_component.in_explosion_range)
 	parent.velocity = (path_component.next_nav_point - parent.global_transform.origin).normalized() * (enemy_stats.current_move_speed / 2)
 	parent.rotation.y = lerp_angle(parent.rotation.y, atan2(-parent.velocity.x, -parent.velocity.z), _delta * 10.0)
 	parent.move_and_slide()
-	#print("drunk walking")
-
-#var anim_track = anim.get_animation("animation_pack/attack")
-	#if range_det_component.in_melee_range:
-		#anim_track.loop_mode = (Animation.LOOP_LINEAR)
 
 func stop() -> void:
-	#match classes:
-		#classlist.SWASHBUCKLER:
-			#anim_tree.set("parameters/conditions/walk", false)
-		#classlist.GUNNER:
-			#anim_tree.set("parameters/conditions/rifle_walk", false)
-		#classlist.POWDER_MONKEY:
-			#anim_tree.set("parameters/conditions/walk", false)
 	parent.velocity = Vector3.ZERO
 
-func _change_move_state(drunk_status: EnemyStatusComponent.DrunkStatusList) -> void:
+func _change_move_state(drunk_status: EnemyStateComponent.DrunkStatusList) -> void:
+	state_component.drunk_status = int(drunk_status)
 	match drunk_status:
-		EnemyStatusComponent.DrunkStatusList.SOBER:
-			move_state = MoveStates.WALK
-		EnemyStatusComponent.DrunkStatusList.TIPSY:
-			move_state = MoveStates.DRUNK_WALK
-		EnemyStatusComponent.DrunkStatusList.DRUNK:
-			move_state = MoveStates.DRUNK_WALK
+		EnemyStateComponent.DrunkStatusList.SOBER:
+			state_component.move_state = state_component.MoveStates.WALK
+		EnemyStateComponent.DrunkStatusList.TIPSY:
+			state_component.move_state = state_component.MoveStates.DRUNK_WALK
+		EnemyStateComponent.DrunkStatusList.DRUNK:
+			state_component.move_state = state_component.MoveStates.DRUNK_WALK
 
 
 #func _toggle_anim_loop() -> void:

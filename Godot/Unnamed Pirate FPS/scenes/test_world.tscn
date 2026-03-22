@@ -191,7 +191,8 @@ uv1_triplanar = true
 [node name="World" type="Node3D"]
 script = ExtResource("1_umbte")
 
-[node name="Wave Manager" parent="." instance=ExtResource("8_nrstc")]
+[node name="Wave Manager" parent="." node_paths=PackedStringArray("nav_region") instance=ExtResource("8_nrstc")]
+nav_region = NodePath("../NavigationRegion3D")
 wave_data = Array[ExtResource("9_ixgyf")]([SubResource("Resource_ixgyf"), SubResource("Resource_r3nqf")])
 
 [node name="Enemy Spawns" type="Node3D" parent="Wave Manager"]

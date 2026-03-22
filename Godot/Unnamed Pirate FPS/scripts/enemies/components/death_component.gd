@@ -3,8 +3,7 @@
 extends Node3D
 class_name EnemyDeathComponent
 
-var state_machine
-
+@export var state_component: EnemyStateComponent
 @export var health_component: EnemyHealthComponent
 @export var anim_tree: AnimationTree
 @export var collider: Node
@@ -12,12 +11,11 @@ var state_machine
 
 func _ready() -> void:
 	prints(get_path(), owner.scene_file_path)
-	health_component.enemy_stats.connect("health_depleted", die)
-	state_machine = anim_tree.get("parameters/playback")
+	health_component.enemy_stats.health_depleted.connect(die)
 
 
-func die():
-	#state_machine.travel("die")
+func die() -> void:
+	state_component.lifecycle_state = state_component.LifecycleStateList.DEAD
 	anim_tree.set("parameters/conditions/die", true)
 	SignalBus.emit_signal("_enemy_died")
 

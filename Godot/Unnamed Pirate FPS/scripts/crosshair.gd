@@ -13,18 +13,18 @@ func _process(_delta: float) -> void:
 	else:
 		_small_x_white()
 
-func _small_x_white():
+func _small_x_white() -> void:
 	$Crosshair.self_modulate = Color(1.0, 1.0, 1.0, 1.0)
 
-func _enemy_targeted():
+func _enemy_targeted() -> void:
 	$Crosshair.self_modulate = Color(1.0, 0.0, 0.0, 1.0)
 
-func _gun_fired():
+func _gun_fired() -> void:
 	if !$AnimationPlayer.is_playing():
 		if !$AnimationPlayer.current_animation == "gun_fire":
 			$AnimationPlayer.play("gun_fire")
 
-func _gun_hit():
+func _gun_hit() -> void:
 	if !$AnimationPlayer.is_playing():
 		$AnimationPlayer.play("gun_hit")
 	elif $AnimationPlayer.is_playing() and $AnimationPlayer.current_animation == "gun_fire":

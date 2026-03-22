@@ -46,16 +46,17 @@ func _process(_delta: float) -> void:
 	pass
 
 func _on_zone_transition(new_zone_transition: bool) -> void:
-	is_target_in_zone = new_zone_transition
-	if new_zone_transition:
-		anim_track.loop_mode = (Animation.LOOP_LINEAR)
-		anim_tree.set("parameters/conditions/attack", true)
-		print("in the zone!")
-
-	elif !new_zone_transition:
-		anim_track.loop_mode = (Animation.LOOP_NONE)
-		anim_tree.set("parameters/conditions/attack", false)
-		print("out of the zone!")
+	pass
+	#is_target_in_zone = new_zone_transition
+	#if new_zone_transition:
+		#anim_track.loop_mode = (Animation.LOOP_LINEAR)
+		#anim_tree.set("parameters/conditions/attack", true)
+		#print("in the zone!")
+#
+	#elif !new_zone_transition:
+		#anim_track.loop_mode = (Animation.LOOP_NONE)
+		#anim_tree.set("parameters/conditions/attack", false)
+		#print("out of the zone!")
 
 
 #func attack() -> void:

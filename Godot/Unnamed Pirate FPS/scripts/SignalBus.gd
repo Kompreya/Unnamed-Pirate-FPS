@@ -24,5 +24,5 @@ signal set_current_weapon(current_weapon_type: int)
 signal rum_soak
 
 #Statuses
-signal drunk_status_changed(new_status)
-signal stun_status_changed(new_status)
+signal drunk_status_changed(new_status: EnemyStateComponent.DrunkStatusList)
+signal stun_status_changed(new_status: EnemyStateComponent.StunStatusList)

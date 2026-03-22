@@ -1,25 +1,25 @@
 extends Control
 
-var is_open = false
-@onready var shop_msg = $Panel/ShopMessage
+var is_open: bool = false
+@onready var shop_msg: Label = $Panel/ShopMessage
 
-func _ready():
+func _ready() -> void:
 	close()
-	
+
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("shop"):
 		if is_open:
 			close()
 		else:
 			open()
-	
-func open():
+
+func open() -> void:
 	visible = true
 	is_open = true
 	print("shop_opened")
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	
-func close():
+
+func close() -> void:
 	visible = false
 	is_open = false
 	print("shop_closed")

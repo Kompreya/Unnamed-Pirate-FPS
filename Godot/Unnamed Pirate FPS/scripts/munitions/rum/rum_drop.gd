@@ -12,7 +12,7 @@ func init_rum(_current_normal_damage: int, _current_rum_stackamt: int) -> void:
 	current_normal_damage = _current_normal_damage
 	current_rum_stackamt = _current_rum_stackamt
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	shape_cast_3d.force_shapecast_update()
 	if shape_cast_3d.is_colliding():
 		var collision_position: Vector3 = shape_cast_3d.get_collision_point(0)
@@ -23,9 +23,8 @@ func _physics_process(delta: float) -> void:
 			shape_cast_3d.get_collider(0).receive_rum_splash(current_rum_stackamt)
 			queue_free()
 		else:
-			var splat
-			var splat_normal = collision_normal.normalized()
-			var basis = Basis()
+			var splat: Decal
+			var splat_normal: Vector3 = collision_normal.normalized()
 			basis.y = splat_normal
 			basis.x = splat_normal.cross(Vector3.FORWARD).normalized()
 			basis.z = basis.x.cross(basis.y).normalized()

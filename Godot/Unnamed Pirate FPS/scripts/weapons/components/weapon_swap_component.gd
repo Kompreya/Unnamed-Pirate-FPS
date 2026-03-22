@@ -12,18 +12,18 @@ func _ready() -> void:
 	SignalBus.set_current_weapon.connect(_set_current_weapon)
 
 func _set_current_weapon(swapped_weapon_type: int) -> void:
-	match weapon.w_type:
-		weapon.w_types.STEEL:
+	match weapon.weapon_attributes.weapon_type:
+		WeaponAttributes.WeaponTypeList.STEEL:
 			if swapped_weapon_type == 1:
 				is_current_weapon = true
 			else:
 				is_current_weapon = false
-		weapon.w_types.SALTSPRAY:
+		WeaponAttributes.WeaponTypeList.SALTSPRAY:
 			if swapped_weapon_type == 2:
 				is_current_weapon = true
 			else:
 				is_current_weapon = false
-		weapon.w_types.RUM:
+		WeaponAttributes.WeaponTypeList.RUM:
 			if swapped_weapon_type == 3:
 				is_current_weapon = true
 			else:

@@ -3,27 +3,13 @@
 extends Node3D
 class_name EnemyStatusComponent
 
-enum StunStatusList {
-	AWARE,
-	STUNNED,
-	KNOCKED_DOWN,
-}
-
-enum DrunkStatusList {
-	SOBER,
-	TIPSY,
-	DRUNK,
-}
-
-signal drunk_status_changed(drunk_status: DrunkStatusList)
+#signal drunk_status_changed(drunk_status: DrunkStatusList)
 
 @export var enemy_stats: EnemyStats
 
+@export var state_component: EnemyStateComponent
 @export var move_component: EnemyMoveComponent
 @export var path_component: EnemyPathComponent
-
-@export var drunk_status: DrunkStatusList = DrunkStatusList.SOBER: set = _on_drunkstatus_change
-@export var stun_status: StunStatusList = StunStatusList.AWARE
 
 var body_parts: Array = []
 var rum_elapsed_time: float = 0.0
@@ -80,16 +66,16 @@ func tickdown_rum_stackamt() -> void:
 	print("Enemy remaining rumstks: ", + enemy_stats.rum_stacks)
 
 func _on_drunkstate_change(drunk_state: EnemyStats.DrunkStates) -> void:
-	match drunk_state:
-		EnemyStats.DrunkStates.SOBER:
-			drunk_status = DrunkStatusList.SOBER
-		EnemyStats.DrunkStates.TIPSY:
-			drunk_status = DrunkStatusList.TIPSY
-		EnemyStats.DrunkStates.DRUNK:
-			drunk_status = DrunkStatusList.DRUNK
+	state_component.drunk_status = int(drunk_state)
+	#match drunk_state:
+		#EnemyStats.DrunkStates.SOBER:
+			#state_component.drunk_status = state_component.DrunkStatusList.SOBER
+		#EnemyStats.DrunkStates.TIPSY:
+			#state_component.drunk_status = state_component.DrunkStatusList.TIPSY
+		#EnemyStats.DrunkStates.DRUNK:
+			#state_component.drunk_status = state_component.DrunkStatusList.DRUNK
 
-func _on_drunkstatus_change(new_status: DrunkStatusList) -> void:
-	SignalBus.drunk_status_changed.emit(new_status)
+
 
 
 #func _sober() -> void:

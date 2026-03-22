@@ -16,5 +16,5 @@ func request_primary_shoot() -> void:
 	else:
 		pass
 
-func _request_ammo():
+func _request_ammo() -> void:
 	ammo_component.create_bullet()

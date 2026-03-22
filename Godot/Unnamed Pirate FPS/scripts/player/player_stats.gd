@@ -84,7 +84,7 @@ func remove_buff(buff: EnemyBuff) -> void:
 func recalc_stats() -> void:
 	var stat_multipliers: Dictionary = {}
 	var stat_addends: Dictionary = {}
-	for buff in stat_buffs:
+	for buff:EnemyBuff in stat_buffs:
 		var stat_name: String = BuffableStats.keys()[buff.stat].to_lower()
 		match buff.buff_type:
 			EnemyBuff.BuffType.ADD:
@@ -110,11 +110,11 @@ func recalc_stats() -> void:
 	current_melee_range = base_melee_range
 	current_move_speed = base_move_speed
 
-	for stat_name in stat_multipliers:
+	for stat_name:String in stat_multipliers:
 		var cur_property_name: String = str("current_" + stat_name)
 		set(cur_property_name, get(cur_property_name) * stat_multipliers[stat_name])
 
-	for stat_name in stat_addends:
+	for stat_name:String in stat_addends:
 		var cur_property_name: String = str("current_" + stat_name)
 		set(cur_property_name, get(cur_property_name) + stat_addends[stat_name])
 

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://s4t6mrjhnlma"]
+
+[ext_resource type="Script" uid="uid://cx0onls41r2kl" path="res://scripts/enemies/components/state_component.gd" id="1_g8wmv"]
+
+[node name="StateComponent" type="Node3D"]
+script = ExtResource("1_g8wmv")

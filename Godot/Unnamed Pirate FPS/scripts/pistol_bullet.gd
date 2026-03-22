@@ -34,10 +34,10 @@ func _process(delta: float) -> void:
 		elif ray.get_collider().is_in_group("crate"):
 			ray.get_collider().hit()
 		elif ray.get_collider().is_in_group("player"):
-			var dir = global_position.direction_to(ray.get_collider().global_position)
-			SignalBus.emit_signal("player_hit", dir, current_normal_damage)
+			var dir: Vector3 = global_position.direction_to(ray.get_collider().global_position)
+			SignalBus.player_hit.emit(dir, current_normal_damage)
 		else:
-			var instance_spark
+			var instance_spark: Node3D
 			instance_spark = emitters.bullet_spark.instantiate()
 			MunitionsEmitters.emitters.add_child(instance_spark)
 			instance_spark.global_transform.origin = collision_point

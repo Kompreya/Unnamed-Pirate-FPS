@@ -1,7 +1,7 @@
 extends Node3D
 
 var instance
-@onready var nav_region = $"../NavigationRegion3D"
+@export var nav_region: NavigationRegion3D
 
 @export var wave_data: Array[Wave]
 
@@ -14,7 +14,7 @@ var alive_enemies: int = 0
 # May have to modify this if I want a wave to end while a bonus is still slated to occur but all enemies dead
 signal enemy_seqs_end
 var seq_outstnd_i: int = 0
-var wave_ongoing = false
+var wave_ongoing: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	randomize()
@@ -25,34 +25,33 @@ func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("debug_wave"):
 		spawn_current_wave()
 
-
-func _get_random_spawn_loc(sequence):
-	var spawn_nodepath = sequence.spawn_location.pick_random()
-	var spawn_loc = get_node(spawn_nodepath).global_position
+func _get_random_spawn_loc(sequence: Array[NodePath]) -> Vector3:
+	var spawn_nodepath: NodePath = sequence.pick_random()
+	var spawn_loc: Vector3 = get_node(spawn_nodepath).global_position
 	return spawn_loc
 
-func _get_random_enemy(sequence: EnemySequence):
-	var rng = RandomNumberGenerator.new()
+func _get_random_enemy(sequence: EnemySequence) -> PackedScene:
+	var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
-	var enemies = sequence.enemy_data
-	var _weights = []
+	var enemies: Array[WaveEnemyData] = sequence.enemy_data
+	var _weights: Array = []
 
-	for e in enemies:
+	for e:WaveEnemyData in enemies:
 		_weights.append(e.spawn_weight)
 
-	var rand_data = enemies[rng.rand_weighted(_weights)]
+	var rand_data: WaveEnemyData = enemies[rng.rand_weighted(_weights)]
 	return rand_data.enemy_scene
 
-func _get_random_bonus(sequence: BonusSequence):
-	var rng = RandomNumberGenerator.new()
+func _get_random_bonus(sequence: BonusSequence) -> PackedScene:
+	var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
-	var bonuses = sequence.bonus_data
-	var _weights = []
+	var bonuses: Array[WaveBonusData] = sequence.bonus_data
+	var _weights: Array = []
 
-	for b in bonuses:
+	for b:WaveBonusData in bonuses:
 		_weights.append(b.spawn_weight)
 
-	var rand_data = bonuses[rng.rand_weighted(_weights)]
+	var rand_data: WaveBonusData = bonuses[rng.rand_weighted(_weights)]
 	return rand_data.bonus_scene
 
 func spawn_current_wave() -> void:
@@ -60,7 +59,7 @@ func spawn_current_wave() -> void:
 		print(str(seq_outstnd_i))
 		wave_ongoing = true
 		print("wave " + str(wave_number) + "started")
-		var wave = wave_data[wave_number]
+		var wave: Wave = wave_data[wave_number]
 		assert(0 == seq_outstnd_i)
 		start_enemy_seq(wave)
 		start_bonus_seq(wave)
@@ -70,12 +69,12 @@ func spawn_current_wave() -> void:
 	elif wave_number >= wave_data.size():
 		print("no more waves")
 
-func start_enemy_seq(current_wave):
-	for enemy_seq in current_wave.enemy_sequences:
+func start_enemy_seq(current_wave: Wave) -> void:
+	for enemy_seq:EnemySequence in current_wave.enemy_sequences:
 		seq_outstnd_i += 1
-		var freq = enemy_seq.spawn_freq
-		var amount = enemy_seq.enemy_amount
-		for i in amount:
+		var freq: float = enemy_seq.spawn_freq
+		var amount: int = enemy_seq.enemy_amount
+		for i:int in amount:
 			await get_tree().create_timer(freq).timeout
 			spawn_enemy(enemy_seq)
 		seq_outstnd_i -= 1
@@ -83,51 +82,51 @@ func start_enemy_seq(current_wave):
 	enemy_seqs_end.emit()
 
 
-func start_bonus_seq(current_wave):
-
-	for bonus_seq in current_wave.bonus_sequences:
+func start_bonus_seq(current_wave: Wave) -> void:
+	for bonus_seq:BonusSequence in current_wave.bonus_sequences:
 		seq_outstnd_i += 1
 		print("bonus start " + str(seq_outstnd_i))
-		var freq = bonus_seq.spawn_freq
-		var amount = bonus_seq.bonus_amount
-		for i in amount:
+		var freq: float = bonus_seq.spawn_freq
+		var amount:int = bonus_seq.bonus_amount
+		for i:int in amount:
 			if wave_ongoing:
 				await get_tree().create_timer(freq).timeout
 				spawn_bonus(bonus_seq)
 		seq_outstnd_i -= 1
 		print("bonus end " + str(seq_outstnd_i))
 
-func spawn_enemy(enemy_seq):
-	var random_enemy = _get_random_enemy(enemy_seq)
+func spawn_enemy(enemy_seq: EnemySequence) -> void:
+
+	var random_enemy: PackedScene = _get_random_enemy(enemy_seq)
 	instance = random_enemy.instantiate()
 
-	var spawn_loc = _get_random_spawn_loc(enemy_seq)
+	var spawn_loc: Vector3 = _get_random_spawn_loc(enemy_seq.spawn_location)
 	instance.position = spawn_loc
 
 	nav_region.add_child(instance)
 	print("enemy spawned at " + str(spawn_loc))
 
-func spawn_bonus(bonus_seq):
-	var random_bonus = _get_random_bonus(bonus_seq)
+func spawn_bonus(bonus_seq: BonusSequence) -> void:
+	var random_bonus: PackedScene = _get_random_bonus(bonus_seq)
 	instance = random_bonus.instantiate()
 
-	var spawn_loc = _get_random_spawn_loc(bonus_seq)
+	var spawn_loc: Vector3 = _get_random_spawn_loc(bonus_seq.spawn_location)
 	instance.position = spawn_loc + Vector3(randf_range(-1, 1), 0, randf_range(-1, 1))
 	instance.rotation = Vector3(0, randf_range(0, 360), 0)
 
 	nav_region.add_child(instance)
 	print("bonus spawned at " + str(spawn_loc))
 
-func enemy_spawned():
+func enemy_spawned() -> void:
 	alive_enemies += 1
 	print("Enemy spawned, alive enemies: " + str(alive_enemies))
 
-func enemy_died():
+func enemy_died() -> void:
 	alive_enemies -= 1
 	print("Enemy died, alive enemies: " + str(alive_enemies))
 	_try_end_wave()
 
-func _try_end_wave():
+func _try_end_wave() -> void:
 	if alive_enemies == 0:
 		wave_number += 1
 		wave_ongoing = false

@@ -7,7 +7,7 @@ class_name PlayerHurtboxComponent
 func _ready() -> void:
 	SignalBus.connect("player_hit", hit)
 
-func hit(dir, damage):
+func hit(dir: Vector3, damage: int) -> void:
 	if PlayerStats.health >= 1:
 		SignalBus.emit_signal("_on_player_hit")
 		#emit_signal("player_hit")

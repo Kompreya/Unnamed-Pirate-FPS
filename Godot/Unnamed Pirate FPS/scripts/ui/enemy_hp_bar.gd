@@ -2,7 +2,7 @@
 
 extends Sprite3D
 
-func update_hp(cur_hp, max_hp):
+func update_hp(cur_hp: int, max_hp: int) -> void:
 	$SubViewport/HPBar3D.max_value = max_hp
 	$SubViewport/HPBar3D.value = cur_hp
 	$SubViewport/HPBar3D/HP.text = str(cur_hp) + "/" + str(max_hp)

@@ -15,8 +15,10 @@ var player = null
 
 @export var player_path := "/root/World/Player"
 
-@export var nav_agent: NavigationAgent3D
+@export var state_component: EnemyStateComponent
 @export var move_component: Node3D
+
+@export var nav_agent: NavigationAgent3D
 @export var anim_tree: AnimationTree
 #@export var status_component: EnemyStatusComponent
 
@@ -97,11 +99,12 @@ func _get_random_loc() -> void:
 func _randomize_comparitor_time() -> void:
 	comparitor_time = randf_range(3.0, 7.0)
 
-func _change_path_route(drunk_status: EnemyStatusComponent.DrunkStatusList) -> void:
+func _change_path_route(drunk_status: EnemyStateComponent.DrunkStatusList) -> void:
 	match drunk_status:
-		EnemyStatusComponent.DrunkStatusList.SOBER:
+		EnemyStateComponent.DrunkStatusList.SOBER:
 			path_route = PathRoutes.TO_PLAYER
-		EnemyStatusComponent.DrunkStatusList.TIPSY:
+		EnemyStateComponent.DrunkStatusList.TIPSY:
 			path_route = PathRoutes.TO_RANDOM_LOCATION
-		EnemyStatusComponent.DrunkStatusList.DRUNK:
+		EnemyStateComponent.DrunkStatusList.DRUNK:
 			path_route = PathRoutes.TO_RANDOM_OBJECT
+			#NEED FAILSAFE FOR NO RANDOM OBJECTS

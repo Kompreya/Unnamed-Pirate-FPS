@@ -11,5 +11,5 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
-func hit():
+func hit() -> void:
 	emit_signal("crate_hit")

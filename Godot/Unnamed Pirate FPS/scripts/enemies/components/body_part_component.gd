@@ -72,7 +72,7 @@ func receive_saltspray_damage(saltspray_damage: int) -> void:
 			enemy_stats.armor = get_parent().defense_component.calculate_armor_rust(saltspray_damage, enemy_stats.armor)
 
 func receive_rum_splash(rum_stackamt: int) -> void:
-	var final_rum_stackamt = get_parent().defense_component.calculate_rum_amount(rum_stackamt, enemy_stats.current_rum_resist)
+	var final_rum_stackamt: int = get_parent().defense_component.calculate_rum_amount(rum_stackamt, enemy_stats.current_rum_resist)
 	enemy_stats.rum_stacks += final_rum_stackamt
 
 

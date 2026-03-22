@@ -32,15 +32,15 @@ func _input(event: InputEvent) -> void:
 
 	#WEAPON SWAPPING
 	if Input.is_action_just_pressed("weapon_one"):
-		weapon_manager.weapon_attributes.current_weapon = weapon_manager.weapon_attributes.WeaponTypes.STEEL
+		weapon_manager.weapon_attributes.current_weapon = weapon_manager.weapon_attributes.WeaponTypeList.STEEL
 
 	if Input.is_action_just_pressed("weapon_two"):
-		weapon_manager.weapon_attributes.current_weapon = weapon_manager.weapon_attributes.WeaponTypes.SALTSPRAY
+		weapon_manager.weapon_attributes.current_weapon = weapon_manager.weapon_attributes.WeaponTypeList.SALTSPRAY
 
 	if Input.is_action_just_pressed("weapon_three"):
-		weapon_manager.weapon_attributes.current_weapon = weapon_manager.weapon_attributes.WeaponTypes.RUM
+		weapon_manager.weapon_attributes.current_weapon = weapon_manager.weapon_attributes.WeaponTypeList.RUM
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	#Shoot
 	if Input.is_action_pressed("shoot"):
 		SignalBus.request_shoot_primary.emit()
