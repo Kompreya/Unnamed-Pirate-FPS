@@ -12,7 +12,7 @@ enum PathRoutes {
 	TO_RANDOM_LOCATION
 }
 
-@export var path_route: PathRoutes
+@export var path_route: PathRoutes = PathRoutes.TO_PLAYER
 
 var player: Node = null
 

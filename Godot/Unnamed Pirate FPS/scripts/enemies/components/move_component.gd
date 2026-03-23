@@ -23,6 +23,8 @@ func _process(delta: float) -> void:
 	match state_component.move_state:
 		state_component.MoveStateList.STOP:
 			stop()
+		state_component.MoveStateList.SLOW_WALK:
+			slow_walk(delta)
 		state_component.MoveStateList.WALK:
 			walk(delta)
 		#TODO Need walk states in state component
@@ -35,7 +37,7 @@ func walk(_delta: float) -> void:
 	parent.rotation.y = lerp_angle(parent.rotation.y, atan2(-parent.velocity.x, -parent.velocity.z), _delta * 10.0)
 	parent.move_and_slide()
 
-func drunk_walk(_delta: float) -> void:
+func slow_walk(_delta: float) -> void:
 	parent.velocity = (path_component.next_nav_point - parent.global_transform.origin).normalized() * (enemy_stats.current_move_speed / 2)
 	parent.rotation.y = lerp_angle(parent.rotation.y, atan2(-parent.velocity.x, -parent.velocity.z), _delta * 10.0)
 	parent.move_and_slide()
@@ -44,14 +46,13 @@ func stop() -> void:
 	parent.velocity = Vector3.ZERO
 
 func _change_move_state(drunk_status: EnemyStateComponent.DrunkStatusList) -> void:
-	state_component.drunk_status = int(drunk_status)
 	match drunk_status:
 		EnemyStateComponent.DrunkStatusList.SOBER:
-			state_component.move_state = state_component.MoveStates.WALK
+			state_component.move_state = EnemyStateComponent.MoveStateList.WALK
 		EnemyStateComponent.DrunkStatusList.TIPSY:
-			state_component.move_state = state_component.MoveStates.DRUNK_WALK
+			state_component.move_state = EnemyStateComponent.MoveStateList.SLOW_WALK
 		EnemyStateComponent.DrunkStatusList.DRUNK:
-			state_component.move_state = state_component.MoveStates.DRUNK_WALK
+			state_component.move_state = EnemyStateComponent.MoveStateList.SLOW_WALK
 
 
 #func _toggle_anim_loop() -> void:

@@ -1,0 +1,33 @@
+[gd_resource type="AnimationNodeStateMachine" load_steps=7 format=3 uid="uid://btqkfvx5briwt"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2llxn"]
+animation = &"animation_pack/drunk_walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yhkv6"]
+animation = &"animation_pack/walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ijg5k"]
+advance_mode = 2
+advance_expression = "drunk_status == DrunkStatusList.TIPSY"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wgnhn"]
+advance_mode = 2
+advance_expression = "drunk_status == DrunkStatusList.SOBER"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vgll2"]
+xfade_time = 1.0
+advance_mode = 2
+advance_expression = "drunk_status == DrunkStatusList.TIPSY"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1a7y4"]
+xfade_time = 1.0
+advance_mode = 2
+advance_expression = "drunk_status == DrunkStatusList.SOBER"
+
+[resource]
+states/drunk_walk/node = SubResource("AnimationNodeAnimation_2llxn")
+states/drunk_walk/position = Vector2(468, 23)
+states/sober_walk/node = SubResource("AnimationNodeAnimation_yhkv6")
+states/sober_walk/position = Vector2(468, 192)
+transitions = ["Start", "drunk_walk", SubResource("AnimationNodeStateMachineTransition_ijg5k"), "Start", "sober_walk", SubResource("AnimationNodeStateMachineTransition_wgnhn"), "sober_walk", "drunk_walk", SubResource("AnimationNodeStateMachineTransition_vgll2"), "drunk_walk", "sober_walk", SubResource("AnimationNodeStateMachineTransition_1a7y4")]
+graph_offset = Vector2(-106, -117)

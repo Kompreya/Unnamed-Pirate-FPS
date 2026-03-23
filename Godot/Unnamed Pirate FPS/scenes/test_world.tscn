@@ -231,7 +231,7 @@ transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545
 
 [node name="Player" parent="." groups=["player"] instance=ExtResource("2_3263u")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.75325, 1.0193682, 25.386581)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.919186, 1.0193605, 24.039066)
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3

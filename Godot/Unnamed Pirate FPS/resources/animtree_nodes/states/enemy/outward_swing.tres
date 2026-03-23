@@ -1,0 +1,14 @@
+[gd_resource type="AnimationNodeBlendTree" load_steps=3 format=3 uid="uid://d0jwo2fg1eiei"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ix6hi"]
+animation = &"animation_pack/attack"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_5xjk3"]
+
+[resource]
+nodes/output/position = Vector2(540, 140)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_5xjk3")
+nodes/TimeScale/position = Vector2(340, 100)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_ix6hi")
+nodes/Animation/position = Vector2(60, 120)
+node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]

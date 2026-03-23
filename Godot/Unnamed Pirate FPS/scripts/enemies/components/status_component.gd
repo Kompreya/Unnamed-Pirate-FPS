@@ -67,13 +67,6 @@ func tickdown_rum_stackamt() -> void:
 
 func _on_drunkstate_change(drunk_state: EnemyStats.DrunkStates) -> void:
 	state_component.drunk_status = int(drunk_state)
-	#match drunk_state:
-		#EnemyStats.DrunkStates.SOBER:
-			#state_component.drunk_status = state_component.DrunkStatusList.SOBER
-		#EnemyStats.DrunkStates.TIPSY:
-			#state_component.drunk_status = state_component.DrunkStatusList.TIPSY
-		#EnemyStats.DrunkStates.DRUNK:
-			#state_component.drunk_status = state_component.DrunkStatusList.DRUNK
 
 
 

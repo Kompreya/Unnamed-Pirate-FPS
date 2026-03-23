@@ -141,6 +141,7 @@ mouse_lock={
 3d_physics/layer_3="items"
 3d_physics/layer_4="player_pickup"
 3d_physics/layer_5="enemy_projectiles"
+3d_physics/layer_6="pushables"
 3d_physics/layer_9="attk_zone_trigger"
 
 [physics]

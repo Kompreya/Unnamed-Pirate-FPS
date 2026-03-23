@@ -16,8 +16,9 @@ func _ready() -> void:
 
 func die() -> void:
 	state_component.lifecycle_state = state_component.LifecycleStateList.DEAD
-	anim_tree.set("parameters/conditions/die", true)
+	#anim_tree.set("parameters/conditions/die", true)
 	SignalBus.emit_signal("_enemy_died")
+	print("enemy DIED")
 
 func cleanup() -> void:
 	collider.disabled = true

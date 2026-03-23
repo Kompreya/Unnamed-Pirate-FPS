@@ -27,6 +27,7 @@ metadata/_custom_type_script = "uid://b47f1neswlvik"
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 9
+collision_mask = 33
 floor_max_angle = 0.87266463
 script = ExtResource("1_qhqgy")
 
