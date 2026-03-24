@@ -1,4 +1,4 @@
-[gd_resource type="AnimationNodeBlendTree" load_steps=3 format=3 uid="uid://d0jwo2fg1eiei"]
+[gd_resource type="AnimationNodeBlendTree" format=3 uid="uid://d0jwo2fg1eiei"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ix6hi"]
 animation = &"animation_pack/attack"

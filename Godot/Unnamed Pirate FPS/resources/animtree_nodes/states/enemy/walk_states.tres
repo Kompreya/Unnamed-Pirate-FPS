@@ -1,4 +1,4 @@
-[gd_resource type="AnimationNodeStateMachine" load_steps=7 format=3 uid="uid://btqkfvx5briwt"]
+[gd_resource type="AnimationNodeStateMachine" format=3 uid="uid://btqkfvx5briwt"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2llxn"]
 animation = &"animation_pack/drunk_walk"

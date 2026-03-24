@@ -6,9 +6,10 @@ class_name EnemyMoveComponent
 @export var state_component: EnemyStateComponent
 @export var enemy_stats: EnemyStats
 @export var path_component: EnemyPathComponent
-@export var range_det_component: EnemyRangeDetectComponent
 @export var anim_tree: AnimationTree
 @export var parent: CharacterBody3D
+
+var entity_speed: float
 
 @export var can_move: bool = true:
 	set(value):
@@ -18,32 +19,35 @@ func _ready() -> void:
 	SignalBus.drunk_status_changed.connect(_change_move_state)
 
 func _process(delta: float) -> void:
-	if !can_move:
-		return
-	match state_component.move_state:
-		state_component.MoveStateList.STOP:
-			stop()
-		state_component.MoveStateList.SLOW_WALK:
-			slow_walk(delta)
-		state_component.MoveStateList.WALK:
-			walk(delta)
+	parent.velocity = (path_component.next_nav_point - parent.global_transform.origin).normalized() * entity_speed
+	parent.rotation.y = lerp_angle(parent.rotation.y, atan2(-parent.velocity.x, -parent.velocity.z), delta * 10.0)
+	parent.move_and_slide()
+	#if !can_move:
+		#return
+	#match state_component.move_state:
+		#state_component.MoveStateList.STOP:
+			#stop()
+		#state_component.MoveStateList.SLOW_WALK:
+			#slow_walk(delta)
+		#state_component.MoveStateList.WALK:
+			#walk(delta)
 		#TODO Need walk states in state component
 		#state_component.MoveStateList.DRUNK_WALK:
 			#drunk_walk(delta)
 
-func walk(_delta: float) -> void:
-	parent.velocity = (path_component.next_nav_point - parent.global_transform.origin).normalized() * enemy_stats.current_move_speed
-
-	parent.rotation.y = lerp_angle(parent.rotation.y, atan2(-parent.velocity.x, -parent.velocity.z), _delta * 10.0)
-	parent.move_and_slide()
-
-func slow_walk(_delta: float) -> void:
-	parent.velocity = (path_component.next_nav_point - parent.global_transform.origin).normalized() * (enemy_stats.current_move_speed / 2)
-	parent.rotation.y = lerp_angle(parent.rotation.y, atan2(-parent.velocity.x, -parent.velocity.z), _delta * 10.0)
-	parent.move_and_slide()
-
-func stop() -> void:
-	parent.velocity = Vector3.ZERO
+#func walk(_delta: float) -> void:
+	#parent.velocity = (path_component.next_nav_point - parent.global_transform.origin).normalized() * enemy_stats.current_move_speed
+#
+	#parent.rotation.y = lerp_angle(parent.rotation.y, atan2(-parent.velocity.x, -parent.velocity.z), _delta * 10.0)
+	#parent.move_and_slide()
+#
+#func slow_walk(_delta: float) -> void:
+	#parent.velocity = (path_component.next_nav_point - parent.global_transform.origin).normalized() * (enemy_stats.current_move_speed / 2)
+	#parent.rotation.y = lerp_angle(parent.rotation.y, atan2(-parent.velocity.x, -parent.velocity.z), _delta * 10.0)
+	#parent.move_and_slide()
+#
+#func stop() -> void:
+	#parent.velocity = Vector3.ZERO
 
 func _change_move_state(drunk_status: EnemyStateComponent.DrunkStatusList) -> void:
 	match drunk_status:

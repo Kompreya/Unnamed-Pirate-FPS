@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cncoqc2p7150a"]
+[gd_scene format=3 uid="uid://cncoqc2p7150a"]
 
 [ext_resource type="Script" uid="uid://4a2wmt2cdpwh" path="res://scripts/Player.gd" id="1_qhqgy"]
 [ext_resource type="PackedScene" uid="uid://c5hk2d38xucbv" path="res://scenes/weapons/flock_pistol.tscn" id="2_dqkch"]
@@ -25,53 +25,54 @@ radius = 1.0
 script = ExtResource("9_d2wvv")
 metadata/_custom_type_script = "uid://b47f1neswlvik"
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" unique_id=770254806]
 collision_layer = 9
 collision_mask = 33
 floor_max_angle = 0.87266463
 script = ExtResource("1_qhqgy")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1910663625]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
 mesh = SubResource("CapsuleMesh_71j4m")
 
-[node name="EnvironmentCollider" type="CollisionShape3D" parent="."]
+[node name="EnvironmentCollider" type="CollisionShape3D" parent="." unique_id=2021159267]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("ConvexPolygonShape3D_qfnet")
 
-[node name="Head" type="Node3D" parent="." node_paths=PackedStringArray("camera")]
+[node name="Head" type="Node3D" parent="." unique_id=339179026 node_paths=PackedStringArray("camera")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8533999, 0)
 script = ExtResource("2_smehm")
 camera = NodePath("Camera3D")
 
-[node name="Camera3D" type="Camera3D" parent="Head"]
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=1914384736]
 current = true
 
-[node name="AimRayComponent" parent="Head/Camera3D" instance=ExtResource("5_ur7pv")]
+[node name="AimRayComponent" parent="Head/Camera3D" unique_id=1228373919 instance=ExtResource("5_ur7pv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
 
-[node name="Camera3D2" type="Camera3D" parent="Head"]
+[node name="Camera3D2" type="Camera3D" parent="Head" unique_id=962135516]
 transform = Transform3D(0.47579303, 0, 0.87955725, 0, 1, 0, -0.87955725, 0, 0.47579303, 2.73341, 0, 0.17836142)
 
-[node name="HealthComponent" parent="." instance=ExtResource("4_dqkch")]
+[node name="HealthComponent" parent="." unique_id=1964153252 instance=ExtResource("4_dqkch")]
 player_health = 100
 
-[node name="AttackZoneTrigger" type="Area3D" parent="."]
+[node name="AttackZoneTrigger" type="Area3D" parent="." unique_id=1684909326]
 collision_layer = 257
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackZoneTrigger"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackZoneTrigger" unique_id=89132313]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CylinderShape3D_3v2ag")
 
-[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_qlg0r")]
+[node name="HurtboxComponent" parent="." unique_id=17811858 node_paths=PackedStringArray("player") instance=ExtResource("5_qlg0r")]
 hit_stagger = 8.0
 player = NodePath("..")
 
-[node name="HurtboxCollider" type="CollisionShape3D" parent="HurtboxComponent"]
+[node name="HurtboxCollider" type="CollisionShape3D" parent="HurtboxComponent" unique_id=664138887]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("ConvexPolygonShape3D_qfnet")
 
-[node name="MoveComponent" parent="." node_paths=PackedStringArray("player", "head", "camera", "input") instance=ExtResource("6_tuyoq")]
+[node name="MoveComponent" parent="." unique_id=2081160097 node_paths=PackedStringArray("player", "head", "camera", "input") instance=ExtResource("6_tuyoq")]
 move_speed = 5.0
 sprint_mult = 1.6
 player = NodePath("..")
@@ -79,32 +80,32 @@ head = NodePath("../Head")
 camera = NodePath("../Head/Camera3D")
 input = NodePath("../InputComponent")
 
-[node name="InputComponent" parent="." node_paths=PackedStringArray("move_component", "weapon_manager", "fp_camera") instance=ExtResource("7_fjrip")]
+[node name="InputComponent" parent="." unique_id=1565007997 node_paths=PackedStringArray("move_component", "weapon_manager", "fp_camera") instance=ExtResource("7_fjrip")]
 move_component = NodePath("../MoveComponent")
 weapon_manager = NodePath("../WeaponManager")
 fp_camera = NodePath("../Head")
 
-[node name="WeaponManager" type="Node3D" parent="." node_paths=PackedStringArray("current_cam")]
+[node name="WeaponManager" type="Node3D" parent="." unique_id=102736726 node_paths=PackedStringArray("current_cam")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0116296, 0)
 script = ExtResource("10_y4r1p")
 current_cam = NodePath("../Head/Camera3D")
 weapon_attributes = SubResource("Resource_d2wvv")
 
-[node name="Slot1" type="Node3D" parent="WeaponManager"]
+[node name="Slot1" type="Node3D" parent="WeaponManager" unique_id=1645531173]
 
-[node name="Pistol" parent="WeaponManager/Slot1" instance=ExtResource("2_dqkch")]
+[node name="Pistol" parent="WeaponManager/Slot1" unique_id=1152988406 instance=ExtResource("2_dqkch")]
 transform = Transform3D(0.9968308, 0, 0.07953775, 0, 1, 0, -0.07953775, 0, 0.9968308, 0.534, -0.7, -0.551)
 
-[node name="Slot2" type="Node3D" parent="WeaponManager"]
+[node name="Slot2" type="Node3D" parent="WeaponManager" unique_id=180631687]
 
-[node name="Sharkgun" parent="WeaponManager/Slot2" instance=ExtResource("3_qlg0r")]
+[node name="Sharkgun" parent="WeaponManager/Slot2" unique_id=211478561 instance=ExtResource("3_qlg0r")]
 transform = Transform3D(0.29999998, 0, 0, 0, 0.29999998, 0, 0, 0, 0.29999998, 0.5054717, -0.59626746, -0.767704)
 
-[node name="Slot3" type="Node3D" parent="WeaponManager"]
+[node name="Slot3" type="Node3D" parent="WeaponManager" unique_id=396115857]
 
-[node name="Grog_bottle" parent="WeaponManager/Slot3" instance=ExtResource("12_3v2ag")]
+[node name="Grog_bottle" parent="WeaponManager/Slot3" unique_id=1556598971 instance=ExtResource("12_3v2ag")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6026932, -0.58280015, -0.8424623)
 
-[node name="Slot4" type="Node3D" parent="WeaponManager"]
+[node name="Slot4" type="Node3D" parent="WeaponManager" unique_id=468962728]
 
-[node name="Slot5" type="Node3D" parent="WeaponManager"]
+[node name="Slot5" type="Node3D" parent="WeaponManager" unique_id=2042703397]
