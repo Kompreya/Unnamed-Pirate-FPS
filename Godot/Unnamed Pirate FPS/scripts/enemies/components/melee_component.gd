@@ -30,10 +30,12 @@ func _attack_zone_one(area3d: Area3D, zone_transition: String) -> void:
 	match zone_transition:
 		"entered":
 			is_target_in_zone = true
-			print("entered!")
+			%MeleeStateMachine.request_state("outward_slash")
+			print("hit zone entered!")
 		"exited":
 			is_target_in_zone = false
-			print("exited")
+			%MeleeStateMachine.request_state("cancel_attacks")
+			print("hit zone exited")
 
 func _process(_delta: float) -> void:
 	#attack()

@@ -1,7 +1,8 @@
-@icon("res://addons/plenticons/icons/16x/symbols/todo-green.png")
-
 extends Node
 class_name StateMachine
+
+signal enter(new_state: State)
+signal exit(current_state: State)
 
 var states: Dictionary = {}
 var current_state: State
@@ -33,6 +34,27 @@ func change_state(source_state: State, new_state_name: String) -> void:
 
 	if current_state:
 		current_state.Exit()
+		exit.emit(current_state)
+
+	new_state.Enter()
+	enter.emit(new_state)
+
+	current_state = new_state
+
+func request_state(requested_state: String) -> void:
+	var new_state: State = states.get(requested_state.to_lower())
+
+	if !new_state:
+		print(str(new_state) + " does not exist in dictionary of " + str(self.get_script().get_global_name()))
+		return
+
+	if current_state == new_state:
+		print(str(current_state) + " is already active in " + str(self.get_script().get_global_name()))
+		return
+
+	if current_state:
+		var exit_callable: Callable = Callable(current_state, "Exit")
+		exit_callable.call_deferred()
 
 	new_state.Enter()
 

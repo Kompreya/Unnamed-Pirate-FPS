@@ -33,7 +33,6 @@ script = ExtResource("1_qhqgy")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1910663625]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-visible = false
 mesh = SubResource("CapsuleMesh_71j4m")
 
 [node name="EnvironmentCollider" type="CollisionShape3D" parent="." unique_id=2021159267]
