@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://dv202bx8jee6p" path="res://scenes/enemies/gunner_man.tscn" id="23_1ia3q"]
 [ext_resource type="PackedScene" uid="uid://br6uralciq78h" path="res://scenes/enemies/test_dummy.tscn" id="24_4ehwd"]
 [ext_resource type="PackedScene" uid="uid://dmhencoe3hyn" path="res://scenes/treasure_chest_01.tscn" id="24_yq81k"]
+[ext_resource type="PackedScene" uid="uid://bwv7jhskr1xk7" path="res://scenes/environment/palm_tree.tscn" id="25_4ehwd"]
 
 [sub_resource type="Resource" id="Resource_lltfd"]
 script = ExtResource("5_bn472")
@@ -807,7 +808,16 @@ wait_time = 5.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17725301, -11.61981)
 
 [node name="Pirate Enemy" parent="." unique_id=650807517 instance=ExtResource("24_4ehwd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.961067, 0.0275523, -4.0626297)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.812508, 0.0275523, 12.958868)
+
+[node name="Root Scene" parent="." unique_id=2040076231 groups=["random_target"] instance=ExtResource("25_4ehwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.592705, 0, 15.64393)
+
+[node name="Root Scene2" parent="." unique_id=668302609 groups=["random_target"] instance=ExtResource("25_4ehwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.00143, 0, 16.475222)
+
+[node name="Root Scene3" parent="." unique_id=765248510 groups=["random_target"] instance=ExtResource("25_4ehwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.578835, 0, 24.42146)
 
 [connection signal="wave_end" from="Wave Manager" to="UI/Wave Intermission Window" method="_on_wave_manager_wave_end"]
 [connection signal="next_wave" from="UI/Wave Intermission Window" to="Wave Manager" method="_on_wave_intermission_window_next_wave"]

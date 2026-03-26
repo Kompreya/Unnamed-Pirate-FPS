@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://bwv7jhskr1xk7"]
+
+[ext_resource type="PackedScene" uid="uid://btm5jh54kvj18" path="res://assets/models/Pirate kit-glb/Palm Tree.glb" id="1_cvnpm"]
+
+[node name="Root Scene" unique_id=2040076231 instance=ExtResource("1_cvnpm")]

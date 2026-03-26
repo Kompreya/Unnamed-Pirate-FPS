@@ -11,6 +11,8 @@ class_name EnemyMoveComponent
 
 var entity_speed: float
 
+
+
 @export var can_move: bool = true:
 	set(value):
 		can_move = value
@@ -20,7 +22,10 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	parent.velocity = (path_component.next_nav_point - parent.global_transform.origin).normalized() * entity_speed
-	parent.rotation.y = lerp_angle(parent.rotation.y, atan2(-parent.velocity.x, -parent.velocity.z), delta * 10.0)
+
+	#parent.rotation.y = angle
+
+	#parent.rotation.y = lerp_angle(parent.rotation.y, atan2(-parent.velocity.x, -parent.velocity.z), delta * 10.0)
 	parent.move_and_slide()
 	#if !can_move:
 		#return

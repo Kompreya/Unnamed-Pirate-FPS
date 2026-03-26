@@ -22,6 +22,10 @@ func _process(delta: float) -> void:
 	if current_state:
 		current_state.Update(delta)
 
+func _physics_process(delta: float) -> void:
+	if current_state:
+		current_state.Physics_Update(delta)
+
 func change_state(source_state: State, new_state_name: String) -> void:
 	if source_state != current_state:
 		prints("Invalid change_state trying from:" + source_state.name + "but currently in:" + current_state.name)

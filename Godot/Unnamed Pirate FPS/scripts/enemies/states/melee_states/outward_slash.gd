@@ -11,8 +11,9 @@ func Enter() -> void:
 	anim.loop_mode = (Animation.LOOP_LINEAR)
 
 func Exit() -> void:
-	%SpeedStateMachine.request_state("normal")
+	print ("slash attack ending")
 	anim.loop_mode = (Animation.LOOP_NONE)
+
 
 func Update(_delta: float) -> void:
 	pass
