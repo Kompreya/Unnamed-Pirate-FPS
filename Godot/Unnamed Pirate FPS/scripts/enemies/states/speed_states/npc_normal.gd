@@ -7,7 +7,7 @@ func Enter() -> void:
 	%MoveComponent.entity_speed = %MoveComponent.enemy_stats.current_move_speed
 
 func Exit() -> void:
-	pass
+	%MoveComponent.entity_speed = 0
 
 func Update(_delta: float) -> void:
 	pass

@@ -6,13 +6,14 @@ signal exit(current_state: State)
 
 var states: Dictionary = {}
 var current_state: State
+var target_state: State
 @export var initial_state: State
 
 func _ready() -> void:
 	for child:Node in get_children():
 		if child is State:
 			states[child.name.to_lower()] = child
-			child.state_transition.connect(change_state)
+			child.state_transition.connect(transition_state)
 
 	if initial_state:
 		initial_state.Enter.call_deferred()
@@ -26,9 +27,14 @@ func _physics_process(delta: float) -> void:
 	if current_state:
 		current_state.Physics_Update(delta)
 
-func change_state(source_state: State, new_state_name: String) -> void:
+	if current_state != target_state and target_state != null:
+		if current_state.can_exit():
+			change_state(target_state.name)
+			print("change to requested state")
+
+func transition_state(source_state: State, new_state_name: String) -> void:
 	if source_state != current_state:
-		prints("Invalid change_state trying from:" + source_state.name + "but currently in:" + current_state.name)
+		prints("Invalid transition_state trying from:" + source_state.name + "but currently in:" + current_state.name)
 		return
 
 	var new_state: State = states.get(new_state_name.to_lower())
@@ -47,9 +53,13 @@ func change_state(source_state: State, new_state_name: String) -> void:
 
 func request_state(requested_state: String) -> void:
 	var new_state: State = states.get(requested_state.to_lower())
+	target_state = new_state
+
+func change_state(changed_state: String) -> void:
+	var new_state: State = states.get(changed_state.to_lower())
 
 	if !new_state:
-		print(str(new_state) + " does not exist in dictionary of " + str(self.get_script().get_global_name()))
+		print(str(changed_state) + " does not exist in dictionary of " + str(self.get_script().get_global_name()))
 		return
 
 	if current_state == new_state:

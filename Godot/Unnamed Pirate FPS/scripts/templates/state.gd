@@ -5,6 +5,8 @@ class_name State
 
 signal state_transition
 
+var _can_exit: bool = true
+
 func Enter() -> void:
 	pass
 
@@ -16,3 +18,6 @@ func Update(_delta: float) -> void:
 
 func Physics_Update(_delta: float) -> void:
 	pass
+
+func can_exit() -> bool:
+	return _can_exit

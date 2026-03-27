@@ -11,8 +11,6 @@ class_name EnemyMoveComponent
 
 var entity_speed: float
 
-
-
 @export var can_move: bool = true:
 	set(value):
 		can_move = value
@@ -20,7 +18,7 @@ var entity_speed: float
 func _ready() -> void:
 	SignalBus.drunk_status_changed.connect(_change_move_state)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	parent.velocity = (path_component.next_nav_point - parent.global_transform.origin).normalized() * entity_speed
 
 	#parent.rotation.y = angle
