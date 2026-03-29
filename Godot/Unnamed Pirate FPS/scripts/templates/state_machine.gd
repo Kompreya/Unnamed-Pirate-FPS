@@ -16,16 +16,16 @@ func _ready() -> void:
 			child.state_transition.connect(transition_state)
 
 	if initial_state:
-		initial_state.Enter.call_deferred()
+		initial_state.enter.call_deferred()
 		current_state = initial_state
 
 func _process(delta: float) -> void:
 	if current_state:
-		current_state.Update(delta)
+		current_state.update(delta)
 
 func _physics_process(delta: float) -> void:
 	if current_state:
-		current_state.Physics_Update(delta)
+		current_state.physics_update(delta)
 
 	if current_state != target_state and target_state != null:
 		if current_state.can_exit():
@@ -43,10 +43,10 @@ func transition_state(source_state: State, new_state_name: String) -> void:
 		return
 
 	if current_state:
-		current_state.Exit()
+		current_state.exit()
 		exit.emit(current_state)
 
-	new_state.Enter()
+	new_state.enter()
 	enter.emit(new_state)
 
 	current_state = new_state
@@ -67,9 +67,9 @@ func change_state(changed_state: String) -> void:
 		return
 
 	if current_state:
-		var exit_callable: Callable = Callable(current_state, "Exit")
+		var exit_callable: Callable = Callable(current_state, "exit")
 		exit_callable.call_deferred()
 
-	new_state.Enter()
+	new_state.enter()
 
 	current_state = new_state

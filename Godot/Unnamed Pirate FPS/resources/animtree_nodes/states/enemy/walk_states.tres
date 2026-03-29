@@ -8,21 +8,21 @@ animation = &"animation_pack/walk"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ijg5k"]
 advance_mode = 2
-advance_expression = "drunk_status == DrunkStatusList.TIPSY"
+advance_expression = "drunk_status == DrunkStatusList.TIPSY || drunk_status == DrunkStatusList.DRUNK"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wgnhn"]
 advance_mode = 2
-advance_expression = "drunk_status == DrunkStatusList.SOBER"
+advance_expression = "drunk_status == DrunkStatusList.SOBER || drunk_status == DrunkStatusList.DEPLETED"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vgll2"]
 xfade_time = 1.0
 advance_mode = 2
-advance_expression = "drunk_status == DrunkStatusList.TIPSY"
+advance_expression = "drunk_status == DrunkStatusList.TIPSY || drunk_status == DrunkStatusList.DRUNK"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1a7y4"]
 xfade_time = 1.0
 advance_mode = 2
-advance_expression = "drunk_status == DrunkStatusList.SOBER"
+advance_expression = "drunk_status == DrunkStatusList.SOBER || drunk_status == DrunkStatusList.DEPLETED"
 
 [resource]
 states/drunk_walk/node = SubResource("AnimationNodeAnimation_2llxn")

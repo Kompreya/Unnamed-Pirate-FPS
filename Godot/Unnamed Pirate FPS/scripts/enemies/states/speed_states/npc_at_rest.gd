@@ -1,11 +1,8 @@
 extends State
 class_name NPCSpeedAtRest
 
-func Enter() -> void:
-	%MoveComponent.entity_speed = 0
+@export var move_component: EnemyMoveComponent
 
-func Exit() -> void:
-	pass
-
-func Update(_delta: float) -> void:
-	pass
+func enter() -> void:
+	if move_component:
+		move_component.entity_speed = 0

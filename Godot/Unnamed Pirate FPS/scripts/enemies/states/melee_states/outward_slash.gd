@@ -1,8 +1,13 @@
 extends State
 class_name NPCOutwardSlash
 
+@export var state_component: EnemyStateComponent
+@export var melee_state_machine: NPCMeleeStateMachine
+
 @export var anim_tree: AnimationTree
-@onready var anim: Animation = %AnimationPlayer.get_animation("animation_pack/attack")
+@export var anim_player: AnimationPlayer
+
+@onready var anim: Animation = anim_player.get_animation("animation_pack/attack")
 @onready var anim_state: AnimationNodeStateMachinePlayback = anim_tree.get("parameters/ALIVE_STATE/playback")
 
 const anim_attack_states: String = "MELEE_ATTACK_STATES"
@@ -10,23 +15,22 @@ const anim_attack_states: String = "MELEE_ATTACK_STATES"
 func _ready() -> void:
 	anim_state.state_finished.connect(_on_animstate_finished)
 
-func Enter() -> void:
+# virtual funcs
+func enter() -> void:
 	print("Slashing!")
 	_can_exit = false
-	%StateComponent.attack_state = EnemyStateComponent.AttackStateList.MELEE
-	%StateComponent.melee_attack = EnemyStateComponent.MeleeAttackList.OUTWARD_SLASH
+	state_component.attack_state = EnemyStateComponent.AttackStateList.MELEE
+	state_component.melee_attack = EnemyStateComponent.MeleeAttackList.OUTWARD_SLASH
 	anim.loop_mode = (Animation.LOOP_LINEAR)
 
-func Exit() -> void:
+func exit() -> void:
 	print ("slash attack ending")
-	%MeleeStateMachine.exit.emit(self)
+	melee_state_machine.exit.emit(self)
 
-func Update(_delta: float) -> void:
-	pass
-
+# state funcs
 func cancel_attack() -> void:
-	%StateComponent.attack_state = EnemyStateComponent.AttackStateList.NONE
-	%StateComponent.attack_state = EnemyStateComponent.MeleeAttackList.NONE
+	state_component.attack_state = EnemyStateComponent.AttackStateList.NONE
+	state_component.melee_attack = EnemyStateComponent.MeleeAttackList.NONE
 	anim.loop_mode = (Animation.LOOP_NONE)
 
 func _on_animstate_finished(state_name: String) -> void:

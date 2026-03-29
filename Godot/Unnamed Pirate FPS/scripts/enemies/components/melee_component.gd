@@ -9,6 +9,11 @@ var player: Node = null
 @export var anim: AnimationPlayer
 @export var range_det_component: EnemyRangeDetectComponent
 
+#State Machines
+@export var melee_state_machine: NPCMeleeStateMachine
+@export var rotation_state_machine: NPCRotationStateMachine
+@export var speed_state_machine: NPCSpeedStateMachine
+
 #Attack Zones
 @export var zone_one: Area3D
 @export var zone_two: Area3D
@@ -23,7 +28,8 @@ func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player")
 	zone_one.area_entered.connect(_attack_zone_one.bind("entered"))
 	zone_one.area_exited.connect(_attack_zone_one.bind("exited"))
-	%MeleeStateMachine.exit.connect(_try_move_request)
+	if melee_state_machine:
+		melee_state_machine.exit.connect(_try_move_request)
 
 
 func _attack_zone_one(area3d: Area3D, zone_transition: String) -> void:
@@ -32,27 +38,34 @@ func _attack_zone_one(area3d: Area3D, zone_transition: String) -> void:
 		"entered":
 			is_target_in_zone = true
 			print("hit zone entered!")
-			%SpeedStateMachine.request_state("at_rest")
-			%RotationStateMachine.request_state("no_rotation")
-			%MeleeStateMachine.request_state("outward_slash")
+			if speed_state_machine:
+				speed_state_machine.request_state("at_rest")
+			if rotation_state_machine:
+				rotation_state_machine.request_state("no_rotation")
+			if melee_state_machine:
+				melee_state_machine.request_state("outward_slash")
 		"exited":
 			is_target_in_zone = false
 			print("hit zone exited")
-			%MeleeStateMachine.request_state("cancel_attacks")
-			%MeleeStateMachine.states.outward_slash.cancel_attack()
+			if melee_state_machine:
+				melee_state_machine.request_state("cancel_attacks")
+				#TODO: needs to be signal
+				melee_state_machine.states.outward_slash.cancel_attack()
 
 func _try_move_request(exited_state: State) -> void:
 	print("trying move request... exited state is " + str(exited_state))
-	if !is_target_in_zone and exited_state == %MeleeStateMachine.states.outward_slash:
+	if !is_target_in_zone and exited_state == melee_state_machine.states.outward_slash:
 		print ("requesting normal speed")
-		%SpeedStateMachine.request_state("normal")
-		%RotationStateMachine.request_state("normal")
+		if speed_state_machine:
+			speed_state_machine.request_state("normal")
+		if rotation_state_machine:
+			rotation_state_machine.request_state("normal")
 
 func _process(_delta: float) -> void:
 	#attack()
 	pass
 
-func _on_zone_transition(new_zone_transition: bool) -> void:
+func _on_zone_transition(_new_zone_transition: bool) -> void:
 	pass
 	#is_target_in_zone = new_zone_transition
 	#if new_zone_transition:

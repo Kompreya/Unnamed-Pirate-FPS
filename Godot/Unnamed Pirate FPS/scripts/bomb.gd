@@ -3,7 +3,7 @@ extends RigidBody3D
 @export var explosion_timer: Timer
 @export var explosion_area: Area3D
 @export var explosion_visual: MeshInstance3D
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
 	print("I am a bomb")
 

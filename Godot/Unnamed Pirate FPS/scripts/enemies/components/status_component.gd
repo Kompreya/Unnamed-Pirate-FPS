@@ -5,12 +5,15 @@ class_name EnemyStatusComponent
 
 #signal drunk_status_changed(drunk_status: DrunkStatusList)
 
+@export var drunk_state_machine: NPCDrunkStateMachine
+
 @export var enemy_stats: EnemyStats
 
 @export var state_component: EnemyStateComponent
 @export var move_component: EnemyMoveComponent
 @export var path_component: EnemyPathComponent
 
+#keep this here. Status comp holds ref to all body parts so states can access
 var body_parts: Array = []
 var rum_elapsed_time: float = 0.0
 
@@ -18,16 +21,13 @@ func _ready() -> void:
 	enemy_stats.poisehp_depleted.connect(_poise_broken)
 	enemy_stats.drunk_state_changed.connect(_on_drunkstate_change)
 
-	#enemy_stats.rum_tipsy.connect(_tipsy)
-	#enemy_stats.rum_sober.connect(_sober)
-
 func register_body_part(body_part: Area3D) -> void:
 	if body_part not in body_parts:
 		body_parts.append(body_part)
 		print("Body part " + str(body_part) + "registered!")
 
-func _process(delta: float) -> void:
-	elapse_rum_timer(delta)
+#func _process(delta: float) -> void:
+	#elapse_rum_timer(delta)
 
 # POISE
 func apply_poise_damage(final_poisebreak: int) -> void:
@@ -66,7 +66,15 @@ func tickdown_rum_stackamt() -> void:
 	print("Enemy remaining rumstks: ", + enemy_stats.rum_stacks)
 
 func _on_drunkstate_change(drunk_state: EnemyStats.DrunkStates) -> void:
-	state_component.drunk_status = int(drunk_state)
+	match drunk_state:
+		EnemyStats.DrunkStates.DEPLETED:
+			drunk_state_machine.request_state("depleted")
+		EnemyStats.DrunkStates.SOBER:
+			drunk_state_machine.request_state("sober")
+		EnemyStats.DrunkStates.TIPSY:
+			drunk_state_machine.request_state("tipsy")
+		EnemyStats.DrunkStates.DRUNK:
+			drunk_state_machine.request_state("drunk")
 
 
 

@@ -14,4 +14,3 @@ func _ready() -> void:
 
 func damage(dam: int) -> void:
 	enemy_stats.health -= dam
-	#emit_signal("pirate_hit")
