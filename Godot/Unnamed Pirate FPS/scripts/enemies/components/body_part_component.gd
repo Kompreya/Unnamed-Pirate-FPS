@@ -49,10 +49,10 @@ func receive_normal_damage(normal_damage: int) -> void:
 func receive_poise_break(poise_break: int) -> void:
 	match armor_type:
 		ArmorTypeList.NONE:
-			get_parent().defense_component.calculate_poise_break(poise_break, enemy_stats.current_poise_resist)
+			get_parent().defense_component.calculate_poise_break(poise_break, enemy_stats.current_poise_resist, self)
 		ArmorTypeList.WOOD:
 			if enemy_stats.armor <= 0:
-				get_parent().defense_component.calculate_poise_break(poise_break, enemy_stats.current_poise_resist)
+				get_parent().defense_component.calculate_poise_break(poise_break, enemy_stats.current_poise_resist, self)
 			else:
 				enemy_stats.armor = get_parent().defense_component.calculate_armor_break(poise_break, enemy_stats.armor)
 		ArmorTypeList.METAL:

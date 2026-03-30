@@ -11,9 +11,9 @@ func calculate_normal_damage(normal_damage: int, normal_resist: int, current_arm
 		var final_normal_damage: int = clampi(((normal_damage - current_armor) - normal_resist), 1, ((normal_damage - current_armor) - normal_resist))
 		health_component.damage(final_normal_damage)
 
-func calculate_poise_break(poise_break: int, poise_resist: int) -> void:
+func calculate_poise_break(poise_break: int, poise_resist: int, body_part: Area3D) -> void:
 	var final_poise_break: int = clampi((poise_break - poise_resist), 0, poise_break)
-	status_component.apply_poise_damage(final_poise_break)
+	status_component.apply_poise_damage(final_poise_break, body_part)
 
 func calculate_armor_break(poise_break: int, armor: int) -> int:
 	var remaining_armor: int = clampi((armor - poise_break), 0, armor)

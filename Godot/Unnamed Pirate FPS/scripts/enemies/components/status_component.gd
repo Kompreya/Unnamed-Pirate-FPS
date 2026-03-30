@@ -13,9 +13,13 @@ class_name EnemyStatusComponent
 @export var move_component: EnemyMoveComponent
 @export var path_component: EnemyPathComponent
 
+@export var stun_parts: Array[BodyPartComponent]
+@export var knockdown_parts: Array[BodyPartComponent]
+
 #keep this here. Status comp holds ref to all body parts so states can access
 var body_parts: Array = []
 var rum_elapsed_time: float = 0.0
+var last_body_part_hit: Area3D
 
 func _ready() -> void:
 	enemy_stats.poisehp_depleted.connect(_poise_broken)
@@ -26,17 +30,22 @@ func register_body_part(body_part: Area3D) -> void:
 		body_parts.append(body_part)
 		print("Body part " + str(body_part) + "registered!")
 
-#func _process(delta: float) -> void:
-	#elapse_rum_timer(delta)
-
 # POISE
-func apply_poise_damage(final_poisebreak: int) -> void:
+func apply_poise_damage(final_poisebreak: int, body_part: Area3D) -> void:
 	print(str(final_poisebreak) + " poisebreak dealt!")
 	enemy_stats.poisehp -= final_poisebreak
+	last_body_part_hit = body_part
 	print(str(enemy_stats.poisehp) + " poisehp remaining!")
+	print("Poise hit on " + str(last_body_part_hit))
 
 func _poise_broken() -> void:
-	print("Poise Broken!")
+	print("Poise Broken on " + str(last_body_part_hit))
+	if last_body_part_hit in stun_parts:
+		print("enemy STUNNED!")
+	elif last_body_part_hit in knockdown_parts:
+		print("enemy KNOCKED DOWN")
+	else:
+		print("poise was broken but unsure which body part was hit")
 	enemy_stats.poisehp = enemy_stats.current_max_poisehp
 
 # RUM
