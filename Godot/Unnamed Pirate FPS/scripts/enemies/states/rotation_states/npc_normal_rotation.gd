@@ -7,12 +7,6 @@ var theta: float
 @export var parent: CharacterBody3D
 @export var path_component: EnemyPathComponent
 
-func enter() -> void:
-	pass
-
-func exit() -> void:
-	pass
-
 func physics_update(delta: float) -> void:
 	if path_component and parent:
 		var dir: Vector3 = (parent.global_position - path_component.next_nav_point).normalized()

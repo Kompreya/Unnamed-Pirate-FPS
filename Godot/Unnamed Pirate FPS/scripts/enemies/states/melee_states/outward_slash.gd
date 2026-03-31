@@ -17,6 +17,7 @@ func _ready() -> void:
 
 # virtual funcs
 func enter() -> void:
+	super()
 	print("Slashing!")
 	_can_exit = false
 	state_component.attack_state = EnemyStateComponent.AttackStateList.MELEE
@@ -24,8 +25,8 @@ func enter() -> void:
 	anim.loop_mode = (Animation.LOOP_LINEAR)
 
 func exit() -> void:
+	super()
 	print ("slash attack ending")
-	melee_state_machine.exit.emit(self)
 
 # state funcs
 func cancel_attack() -> void:

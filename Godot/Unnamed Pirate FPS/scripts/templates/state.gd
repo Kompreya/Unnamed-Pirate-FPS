@@ -8,10 +8,10 @@ signal state_transition
 var _can_exit: bool = true
 
 func enter() -> void:
-	pass
+	get_parent().enter.emit(self)
 
 func exit() -> void:
-	pass
+	get_parent().exit.emit(self)
 
 func update(_delta: float) -> void:
 	pass

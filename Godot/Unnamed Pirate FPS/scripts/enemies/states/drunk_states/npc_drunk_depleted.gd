@@ -6,5 +6,6 @@ class_name NPCDrunkDepleted
 
 # virtual funcs
 func enter() -> void:
+	super()
 	if state_component:
 		state_component.drunk_status = EnemyStateComponent.DrunkStatusList.DEPLETED

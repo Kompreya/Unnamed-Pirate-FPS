@@ -4,6 +4,7 @@ class_name NPCCancelMeleeAttacks
 @export var state_component: EnemyStateComponent
 
 func enter() -> void:
+	super()
 	if state_component:
 		print("cancelling melees")
 		state_component.attack_state = EnemyStateComponent.AttackStateList.NONE
