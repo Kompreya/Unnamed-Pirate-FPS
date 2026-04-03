@@ -2,7 +2,6 @@ extends CharacterBody3D
 
 var player_stats: Node = PlayerStats
 
-
 	## Shooting
 	#if Input.is_action_pressed("shoot") and can_shoot:
 		#match weapon:

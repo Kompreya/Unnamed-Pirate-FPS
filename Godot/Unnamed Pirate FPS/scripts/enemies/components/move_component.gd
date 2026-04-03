@@ -16,21 +16,72 @@ class_name EnemyMoveComponent
 
 var entity_speed: float
 
+var current_enter_states: Array[PendingEnterState]
+var pending_enter_states: Array[PendingEnterState]
+
+var current_exit_state: State
+
 @export var can_move: bool = true:
 	set(value):
 		can_move = value
 
 func _ready() -> void:
-	#SignalBus.drunk_status_changed.connect(_change_move_state)
 	if state_machines:
 		for sm:StateMachine in state_machines:
-			sm.enter.connect(state_machine_transitions.bind("entered"))
-			sm.exit.connect(state_machine_transitions.bind("exited"))
+			#sm.enter.connect(state_machine_transitions.bind("entered"))
+			sm.enter.connect(dispatch_enter_states)
+			#sm.exit.connect(state_machine_transitions.bind("exited"))
 
 func _process(_delta: float) -> void:
 	parent.velocity = (path_component.next_nav_point - parent.global_transform.origin).normalized() * entity_speed
 	parent.move_and_slide()
 
+func dispatch_enter_states(state: State) -> void:
+	for c:NPCStateConditions in move_state_conditions:
+		var state_node: State = get_node(c.received_state)
+		if state_node == state:
+			for d:NPCDispatchStates in c.dispatch_states:
+				var p: PendingEnterState = PendingEnterState.new()
+				p.state_machine = get_node(d.state_machine)
+				p.state = get_node(d.enter_state_dispatch.enter_state)
+				p.priority = d.enter_state_dispatch.priority
+				p.state_change_type = d.enter_state_dispatch.state_change_type
+				set_current_enter_state(p)
+
+func set_current_enter_state(new_pend: PendingEnterState) -> void:
+	if current_enter_states.is_empty():
+		current_enter_states.append(new_pend)
+		dispatch_state(new_pend)
+	elif !current_enter_states.is_empty():
+		for c:PendingEnterState in current_enter_states:
+			if new_pend.state_machine.get_class() == c.state_machine.get_class():
+				if new_pend.priority > c.priority:
+					var c_idx: int = current_enter_states.bsearch(c)
+					current_enter_states.set(c_idx, new_pend)
+					dispatch_state(new_pend)
+				elif new_pend.priority <= c.priority:
+					set_pending_enter_state(c)
+
+func set_pending_enter_state(new_pend: PendingEnterState) -> void:
+	if pending_enter_states.is_empty():
+		pending_enter_states.append(new_pend)
+	elif !pending_enter_states.is_empty():
+		for c:PendingEnterState in pending_enter_states:
+			if new_pend.state_machine.get_class() == c.state_machine.get_class():
+				if new_pend.priority > c.priority:
+					var c_idx: int = pending_enter_states.bsearch(c)
+					pending_enter_states.set(c_idx, new_pend)
+
+func dispatch_state(dispatch: PendingEnterState) -> void:
+	match dispatch.state_change_type:
+		NPCEnterStateDispatch.StateChangeOptions.IMMEDIATE:
+			dispatch.state_machine.change_state(dispatch.state.name)
+		NPCEnterStateDispatch.StateChangeOptions.REQUEST:
+			dispatch.state_machine.request_state(dispatch.state.name)
+
+
+
+# PLAN TO REPLACE WITH PRIORITY QUEUE
 func state_machine_transitions(state: State, transition: String) -> void:
 	match transition:
 		"entered":
@@ -59,12 +110,3 @@ func state_machine_transitions(state: State, transition: String) -> void:
 								sm.change_state(exit.name.to_lower())
 							d.exit_state_dispatch.StateChangeOptions.REQUEST:
 								sm.request_state(exit.name.to_lower())
-
-#func _change_move_state(drunk_status: EnemyStateComponent.DrunkStatusList) -> void:
-	#match drunk_status:
-		#EnemyStateComponent.DrunkStatusList.SOBER:
-			#state_component.move_state = EnemyStateComponent.MoveStateList.WALK
-		#EnemyStateComponent.DrunkStatusList.TIPSY:
-			#state_component.move_state = EnemyStateComponent.MoveStateList.SLOW_WALK
-		#EnemyStateComponent.DrunkStatusList.DRUNK:
-			#state_component.move_state = EnemyStateComponent.MoveStateList.SLOW_WALK
