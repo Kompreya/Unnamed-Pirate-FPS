@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://duh68ynyxu67f"]
+[gd_scene format=4 uid="uid://duh68ynyxu67f"]
 
 [ext_resource type="Script" uid="uid://c4pog5cvt0fqe" path="res://scripts/weapons/weapon_collection/grog_bottle.gd" id="1_a5eam"]
 [ext_resource type="Texture2D" uid="uid://de4apv8vl247c" path="res://assets/models/grog_bottle/Grog_bottle_Image_3.png" id="1_oekcp"]
@@ -265,57 +265,55 @@ _data = {
 &"Swap": SubResource("Animation_su6b3")
 }
 
-[sub_resource type="Resource" id="Resource_v8vk6"]
+[sub_resource type="Resource" id="Resource_nexal"]
 resource_local_to_scene = true
 script = ExtResource("10_su6b3")
-base_rum_stackamt = 1
+base_rum_stackamt = 2
 metadata/_custom_type_script = "uid://wced2cfmo1qd"
 
-[node name="Grog_bottle" type="Node3D"]
+[node name="Grog_bottle" type="Node3D" unique_id=1879306596]
 script = ExtResource("1_a5eam")
 weapon_attributes = SubResource("Resource_su6b3")
 
-[node name="Sketchfab_model" type="Node3D" parent="."]
+[node name="Sketchfab_model" type="Node3D" parent="." unique_id=1136564814]
 transform = Transform3D(0.19999988, 0, 0, 0, 0.051763795, 0.19318509, 0, -0.19318509, 0.051763795, 0, 0, 0)
 visible = false
 
-[node name="Bottle_opening" type="Node3D" parent="Sketchfab_model"]
+[node name="Bottle_opening" type="Node3D" parent="Sketchfab_model" unique_id=1283754650]
 transform = Transform3D(5.000003, 0, 0, 0, 4.995335, 0.2159164, 0, -0.2159164, 4.995335, 0, 1.535641, -0.0028949976)
 
-[node name="e843c7ca2c354e0e86014f299995e9d7_fbx" type="Node3D" parent="Sketchfab_model"]
+[node name="e843c7ca2c354e0e86014f299995e9d7_fbx" type="Node3D" parent="Sketchfab_model" unique_id=200940510]
 
-[node name="RootNode" type="Node3D" parent="Sketchfab_model/e843c7ca2c354e0e86014f299995e9d7_fbx"]
+[node name="RootNode" type="Node3D" parent="Sketchfab_model/e843c7ca2c354e0e86014f299995e9d7_fbx" unique_id=1383659349]
 
-[node name="Cep_low" type="Node3D" parent="Sketchfab_model/e843c7ca2c354e0e86014f299995e9d7_fbx/RootNode"]
+[node name="Cep_low" type="Node3D" parent="Sketchfab_model/e843c7ca2c354e0e86014f299995e9d7_fbx/RootNode" unique_id=1395684974]
 visible = false
 
-[node name="Cep_low_Material_0" type="MeshInstance3D" parent="Sketchfab_model/e843c7ca2c354e0e86014f299995e9d7_fbx/RootNode/Cep_low"]
+[node name="Cep_low_Material_0" type="MeshInstance3D" parent="Sketchfab_model/e843c7ca2c354e0e86014f299995e9d7_fbx/RootNode/Cep_low" unique_id=896818710]
 mesh = SubResource("ArrayMesh_rto0c")
 skeleton = NodePath("")
 
-[node name="Rum_low" type="Node3D" parent="Sketchfab_model/e843c7ca2c354e0e86014f299995e9d7_fbx/RootNode"]
+[node name="Rum_low" type="Node3D" parent="Sketchfab_model/e843c7ca2c354e0e86014f299995e9d7_fbx/RootNode" unique_id=1768216715]
 
-[node name="Rum_low_keramika_0" type="MeshInstance3D" parent="Sketchfab_model/e843c7ca2c354e0e86014f299995e9d7_fbx/RootNode/Rum_low"]
+[node name="Rum_low_keramika_0" type="MeshInstance3D" parent="Sketchfab_model/e843c7ca2c354e0e86014f299995e9d7_fbx/RootNode/Rum_low" unique_id=421897673]
 mesh = SubResource("ArrayMesh_ikum7")
 skeleton = NodePath("")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_owxlv")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=900054894]
+libraries/ = SubResource("AnimationLibrary_owxlv")
 
-[node name="ShootComponent" parent="." node_paths=PackedStringArray("anim", "ammo_component", "weapon_swap_component") instance=ExtResource("7_dho1q")]
+[node name="ShootComponent" parent="." unique_id=785925791 node_paths=PackedStringArray("anim", "ammo_component", "weapon_swap_component") instance=ExtResource("7_dho1q")]
 anim = NodePath("../AnimationPlayer")
 ammo_component = NodePath("../AmmoComponent")
 weapon_swap_component = NodePath("../WeaponSwapComponent")
 
-[node name="AmmoComponent" parent="." node_paths=PackedStringArray("weapon", "rum_opening") instance=ExtResource("9_nexal")]
+[node name="AmmoComponent" parent="." unique_id=1474371153 node_paths=PackedStringArray("weapon", "rum_opening") instance=ExtResource("9_nexal")]
 weapon = NodePath("..")
 rum_opening = NodePath("../Sketchfab_model/Bottle_opening")
-weapon_stats = SubResource("Resource_v8vk6")
+weapon_stats = SubResource("Resource_nexal")
 
-[node name="ReloadComponent" parent="." instance=ExtResource("8_a5eam")]
+[node name="ReloadComponent" parent="." unique_id=1185666223 instance=ExtResource("8_a5eam")]
 
-[node name="WeaponSwapComponent" parent="." node_paths=PackedStringArray("weapon", "anim") instance=ExtResource("11_owxlv")]
+[node name="WeaponSwapComponent" parent="." unique_id=774541658 node_paths=PackedStringArray("weapon", "anim") instance=ExtResource("11_owxlv")]
 weapon = NodePath("..")
 anim = NodePath("../AnimationPlayer")

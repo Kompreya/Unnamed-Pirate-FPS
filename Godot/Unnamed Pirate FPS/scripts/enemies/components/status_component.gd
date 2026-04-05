@@ -28,15 +28,15 @@ func _ready() -> void:
 func register_body_part(body_part: Area3D) -> void:
 	if body_part not in body_parts:
 		body_parts.append(body_part)
-		print("Body part " + str(body_part) + "registered!")
+		#print("Body part " + str(body_part) + "registered!")
 
 # POISE
 func apply_poise_damage(final_poisebreak: int, body_part: Area3D) -> void:
-	print(str(final_poisebreak) + " poisebreak dealt!")
+	#print(str(final_poisebreak) + " poisebreak dealt!")
 	enemy_stats.poisehp -= final_poisebreak
 	last_body_part_hit = body_part
-	print(str(enemy_stats.poisehp) + " poisehp remaining!")
-	print("Poise hit on " + str(last_body_part_hit))
+	#print(str(enemy_stats.poisehp) + " poisehp remaining!")
+	#print("Poise hit on " + str(last_body_part_hit))
 
 func _poise_broken() -> void:
 	print("Poise Broken on " + str(last_body_part_hit))
@@ -70,7 +70,7 @@ func tickdown_rum_stackamt() -> void:
 	for part:Area3D in body_parts:
 		if part.enemy_stats.rum_stacks > 0:
 			part.enemy_stats.rum_stacks -= 1
-			print("Body part " + str(part) + " remaining rum: " + str(part.enemy_stats.rum_stacks))
+			#print("Body part " + str(part) + " remaining rum: " + str(part.enemy_stats.rum_stacks))
 
 	print("Enemy remaining rumstks: ", + enemy_stats.rum_stacks)
 

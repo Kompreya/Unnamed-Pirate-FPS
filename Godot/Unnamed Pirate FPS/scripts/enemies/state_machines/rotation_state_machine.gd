@@ -2,3 +2,6 @@
 
 extends StateMachine
 class_name NPCRotationStateMachine
+
+func get_sm_class() -> String:
+	return "NPCRotationStateMachine"

@@ -2,3 +2,6 @@
 
 extends StateMachine
 class_name NPCSpeedStateMachine
+
+func get_sm_class() -> String:
+	return "NPCSpeedStateMachine"

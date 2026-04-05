@@ -28,16 +28,16 @@ func _ready() -> void:
 
 
 func _attack_zone_one(area3d: Area3D, zone_transition: String) -> void:
-	print(str(area3d) + " " + str(zone_transition))
+	#print(str(area3d) + " " + str(zone_transition))
 	match zone_transition:
 		"entered":
 			is_target_in_zone = true
-			print("hit zone entered!")
+			#print("hit zone entered!")
 			if melee_state_machine:
 				melee_state_machine.request_state("outward_slash")
 		"exited":
 			is_target_in_zone = false
-			print("hit zone exited")
+			#print("hit zone exited")
 			if melee_state_machine:
 				melee_state_machine.request_state("cancel_attacks")
 				#TODO: needs to be signal
