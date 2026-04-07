@@ -1,5 +1,5 @@
 extends State
-class_name NPCOutwardSlash
+class_name NPCThrustSlash
 
 @export var state_component: EnemyStateComponent
 @export var melee_state_machine: NPCMeleeStateMachine
@@ -7,7 +7,7 @@ class_name NPCOutwardSlash
 @export var anim_tree: AnimationTree
 @export var anim_player: AnimationPlayer
 
-@onready var anim: Animation = anim_player.get_animation("animation_pack/attack")
+@onready var anim: Animation = anim_player.get_animation("animation_pack/thrust_slash")
 @onready var anim_state: AnimationNodeStateMachinePlayback = anim_tree.get("parameters/ALIVE_STATE/playback")
 
 const anim_attack_states: String = "MELEE_ATTACK_STATES"
@@ -21,7 +21,7 @@ func enter() -> void:
 	#print("Slashing!")
 	_can_exit = false
 	state_component.attack_state = EnemyStateComponent.AttackStateList.MELEE
-	state_component.melee_attack = EnemyStateComponent.MeleeAttackList.OUTWARD_SLASH
+	state_component.melee_attack = EnemyStateComponent.MeleeAttackList.THRUST_SLASH
 	anim.loop_mode = (Animation.LOOP_LINEAR)
 
 func exit() -> void:

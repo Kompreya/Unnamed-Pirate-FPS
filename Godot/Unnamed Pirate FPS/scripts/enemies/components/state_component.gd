@@ -34,6 +34,8 @@ enum AttackStateList {
 enum MeleeAttackList {
 	NONE,
 	OUTWARD_SLASH,
+	JAB,
+	THRUST_SLASH,
 }
 
 @export var melee_attack: MeleeAttackList = MeleeAttackList.NONE

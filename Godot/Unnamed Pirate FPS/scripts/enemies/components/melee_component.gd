@@ -9,8 +9,6 @@ class_name EnemyMeleeComponent
 
 #State Machines
 @export var melee_state_machine: NPCMeleeStateMachine
-@export var rotation_state_machine: NPCRotationStateMachine
-@export var speed_state_machine: NPCSpeedStateMachine
 
 #Attack Zones
 @export var zone_one: Area3D
@@ -21,6 +19,9 @@ class_name EnemyMeleeComponent
 @export var weapon_hbox_two: Area3D
 
 var is_target_in_zone: bool = false #: set = _on_zone_transition
+
+@export var trigger_timer: float
+var zone_timer: float
 
 func _ready() -> void:
 	zone_one.area_entered.connect(_attack_zone_one.bind("entered"))
